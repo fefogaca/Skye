@@ -27,7 +27,7 @@ const { addPremiumUser, getPremiumExpired, getPremiumPosition, expiredCheck, che
 const { fetchBuffer, buffergif } = require("./lib/myfunc2")
 const ytdl  = require('ytdl-core');
 const {youtubedl, youtubedlv2}  = require('@bochilteam/scraper');
-const { payment } = require("./PixAPI-MercadoPago-Js/index.js")
+const { payment } = require("./lib/PixAPI-MercadoPago-Js/index.js")
 
 //database
 let premium = JSON.parse(fs.readFileSync('./database/premium.json'))
