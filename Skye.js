@@ -220,7 +220,7 @@ module.exports = Skye = async (Skye, m, msg, chatUpdate, store) => {
                     let getReason2 = afk.getAfkReason(getId2, _afk)
                     let getTimee = Date.now() - afk.getAfkTime(getId2, _afk)
                     let heheh2 = ms(getTimee)
-                    SkyeEnviar(`Não marque ele, ele está AFK\n\n*Motivo:* ${getReason2}`)
+                    SkyeEnviar(`❌ Não marque ele, ele está AFK\n*Motivo:* ${getReason2}`)
                 }
             }
             if (afk.checkAfkUser(m.sender, _afk)) {
@@ -234,7 +234,7 @@ module.exports = Skye = async (Skye, m, msg, chatUpdate, store) => {
             }
         }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Inicio das cases
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Inicio das cases
         switch (command) {
 
             // Case para adicionar membros premium a database
@@ -927,7 +927,7 @@ module.exports = Skye = async (Skye, m, msg, chatUpdate, store) => {
             }
                 break
 
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+            // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
             // Case de junção de sticker 
             case 'emojimix': {
@@ -1004,289 +1004,289 @@ module.exports = Skye = async (Skye, m, msg, chatUpdate, store) => {
             }
                 break
 
-            /*
-                        case 'adddono':
-                            if (!SkyeCreator) return SkyeEnviar(SkyeMensagens.dono)
-            if (!args[0]) return SkyeEnviar(`Use ${prefix+command} numero\nExemplo ${prefix+command} ${ownernumber}`)
-            bnnd = q.split("|")[0].replace(/[^0-9]/g, '')
-            let ceknye = await Skye.onWhatsApp(bnnd)
-            if (ceknye.length == 0) return SkyeEnviar(`Insira um número válido e registrado no WhatsApp!!!`)
-            dono.push(bnnd)
-            fs.writeFileSync('./database/dono.json', JSON.stringify(dono))
-            SkyeEnviar(`O número ${bnnd} tornou-se proprietário!!!`)
-            break
-            
+
+            case 'adddono':
+                if (!SkyeCreator) return SkyeEnviar(SkyeMensagens.dono)
+                if (!args[0]) return SkyeEnviar(`👉🏼 Utilize ${prefix + command} número\nExemplo ${prefix + command} ${ownernumber}`)
+                bnnd = q.split("|")[0].replace(/[^0-9]/g, '')
+                let ceknye = await Skye.onWhatsApp(bnnd)
+                if (ceknye.length == 0) return SkyeEnviar(`🛑 Insira um número válido e registrado no WhatsApp!`)
+                dono.push(bnnd)
+                fs.writeFileSync('./database/dono.json', JSON.stringify(dono))
+                SkyeEnviar(`✅ O número ${bnnd} tornou-se proprietário!`)
+                break
+
             case 'deldono':
-                            if (!SkyeCreator) return SkyeEnviar(SkyeMensagens.dono)
-            if (!args[0]) return SkyeEnviar(`Use ${prefix+command} numero\nExemplo ${prefix+command} 5511941212232`)
-            ya = q.split("|")[0].replace(/[^0-9]/g, '')
-            unp = dono.indexOf(ya)
-            dono.splice(unp, 1)
-            fs.writeFileSync('./database/dono.json', JSON.stringify(dono))
-            SkyeEnviar(`O número ${ya} foi excluído da lista de proprietários pelo proprietário!!!`)
-            break
-            
+                if (!SkyeCreator) return SkyeEnviar(SkyeMensagens.dono)
+                if (!args[0]) return SkyeEnviar(`👉🏼 Utilize ${prefix + command} número\nExemplo ${prefix + command} ${ownernumber}`)
+                ya = q.split("|")[0].replace(/[^0-9]/g, '')
+                unp = dono.indexOf(ya)
+                dono.splice(unp, 1)
+                fs.writeFileSync('./database/dono.json', JSON.stringify(dono))
+                SkyeEnviar(`✅ O número ${ya} foi excluído da lista de proprietários!`)
+                break
+
+            /*      
+                        case 'video': // By Flávio
+                          if (!q) return SkyeEnviar(`${prefix + command} link ou nome`);
                         
-            case 'video': // By Flávio
-              if (!q) return SkyeEnviar(`${prefix + command} link ou nome`);
-            
-              const mtq = require('yt-search');
-            
-              const ytp_play = await mtq(q);
-              if (!ytp_play || ytp_play.videos.length === 0) {
-                console.log('Nenhum vídeo encontrado para a pesquisa.');
-                return reply('Nenhum vídeo encontrado para a pesquisa.');
-              }
-              
-              const qmq = '720';
-              const qla = qmq + 'p';
-              const vvs = ytp_play.videos[0].url;
-            
-              if (!vvs || typeof vvs !== 'string') {
-                console.log('Erro ao obter o vídeo. Valor de v:', vvs);
-                SkyeEnviar(`Ola *${pushname}* aguarde Um Momento`);
-                return reply('Erro ao obter o vídeo.');
-              }
-            
-              const ytp = await youtubedl(vvs).catch(async (_) => await youtubedlv2(vvs));
-              const dlt_url = await ytp.video[qla].download();
-              const tssl = await ytp.title;
-              const sizeas = await ytp.video[qla].fileSizeH;
-            
-              await Skye.sendMessage(m.chat, {
-                video : { url: dlt_url },
-                caption: `╭━❰  Daki  ❱━⬣\n┃📥 YOUTUBE DL 📥\n┃ও *TÍTULO:* \n┃» ${tssl}\n┃﹘﹘﹘﹘﹘﹘﹘﹘﹘﹘﹘﹘\n┃ও *PESO:*\n┃» ${sizeas}\n╰━❰ *Daki* ❱━⬣`,
-                fileName: `${tssl}.mp4`,
-                mimetype: 'video/mp4',
-                contextInfo: {
-                  externalAdReply: {
-                    title: tssl,
-                    body: "",
-                    thumbnailUrl: ytp_play.videos[0].thumbnail,
-                    mediaType: 2,
-                    showAdAttribution: true,
-                    renderLargerThumbnail: true,
-                  },
-                },
-              }, { quoted: m });
-              break;
-            
-            case 'play': //by Flavio
-            if (!q) return SkyeEnviar(`${prefix + command} link ou nome`);
-            
-              const mstt = require('yt-search');
-            
-              const ytai_play = await mstt(q);
-              if (!ytai_play || ytai_play.videos.length === 0) {
-                console.log('Nenhum vídeo encontrado para a pesquisa.');
-                return reply('Nenhum vídeo encontrado para a pesquisa.');
-              }
-            let qw = '128kbps'
-            
-            const vi = ytai_play.videos[0].url;
-              
-              if (!vi || typeof vi !== 'string') {
-                console.log('Erro ao obter o vídeo. Valor de v:', vi);
-                return reply('Erro ao obter o vídeo.');
-              }
-              
-              console.log('Valor de v:', vi);
-              
-              SkyeEnviar(`Ola *${pushname}* aguarde Um Momento`);
-              
-            const ytai = await youtubedl(vi).catch(async _ => await youtubedlv2(vi))
-            const dlh_url = await ytai.audio[qw].download()
-            const tyl = await ytai.title
-            const sizre = await ytai.audio[qw].fileSizeH
-            await Skye.sendMessage(m.chat, { audio: { url: dlh_url }, mimetype: 'audio/mpeg', contextInfo: {
-            externalAdReply: {
-            title: tyl,
-            body: "",
-            thumbnail: await fetchBuffer(ytai_play.videos[0].thumbnail),
-            mediaType: 1,
-            showAdAttribution: true,
-            renderLargerThumbnail: true
-            }}} , { quoted: m })
-            break
-            
-            case 'mp4doc': // By Flávio
-              if (!q) return SkyeEnviar(`${prefix + command} link ou nome`);
-            
-              const mt = require('yt-search');
-            
-              const ytt_play = await mt(q);
-              if (!ytt_play || ytt_play.videos.length === 0) {
-                console.log('Nenhum vídeo encontrado para a pesquisa.');
-                return reply('Nenhum vídeo encontrado para a pesquisa.');
-              }
-              
-              const qu = '720';
-              const qq = qu + 'p';
-              const vs = ytt_play.videos[0].url;
-            
-              if (!vs || typeof vs !== 'string') {
-                console.log('Erro ao obter o vídeo. Valor de v:', vs);
-                SkyeEnviar(`Ola *${pushname}* aguarde Um Momento`);
-                return reply('Erro ao obter o vídeo.');
-              }
-            
-              const ytt = await youtubedl(vs).catch(async (_) => await youtubedlv2(vs));
-              const dls_url = await ytt.video[qq].download();
-              const tsl = await ytt.title;
-              const sizes = await ytt.video[qq].fileSizeH;
-            
-              await Skye.sendMessage(m.chat, {
-                document: { url: dls_url },
-                caption: `╭━❰  Daki  ❱━⬣\n┃📥 YOUTUBE DL 📥\n┃ও *TÍTULO:* \n┃» ${tsl}\n┃﹘﹘﹘﹘﹘﹘﹘﹘﹘﹘﹘﹘\n┃ও *PESO:*\n┃» ${sizes}\n╰━❰ *Daki* ❱━⬣`,
-                fileName: `${tsl}.mp4`,
-                mimetype: 'video/mp4',
-                contextInfo: {
-                  externalAdReply: {
-                    title: tsl,
-                    body: "",
-                    thumbnailUrl: ytt_play.videos[0].thumbnail,
-                    mediaType: 2,
-                    showAdAttribution: true,
-                    renderLargerThumbnail: true,
-                  },
-                },
-              }, { quoted: m });
-              break;
-            
-            case 'playdoc': //By Flávio
-              if (!q) return SkyeEnviar(`${prefix + command} link ou nome`);
-              
-              const ytsk = require('yt-search');
-            
-              const yt_play = await ytsk(q);
-              if (!yt_play || yt_play.videos.length === 0) {
-                console.log('Nenhum vídeo encontrado para a pesquisa.');
-                return reply('Nenhum vídeo encontrado para a pesquisa.');
-              }
-              
-              const qc = '128kbps';
-              const v = yt_play.videos[0].url;
-              
-              if (!v || typeof v !== 'string') {
-                console.log('Erro ao obter o vídeo. Valor de v:', v);
-                return reply('Erro ao obter o vídeo.');
-              }
-              
-              console.log('Valor de v:', v);
-              
-              SkyeEnviar(`Ola *${pushname}* aguarde Um Momento`);
-              const yt = await youtubedl(v).catch(async (_) => await youtubedlv2(v));
-              const dl_url = await yt.audio[qc].download();
-              const tl = await yt.title;
-              const size = await yt.audio[qc].fileSizeH;
-              const cap = `╭━❰  *DAKI* ❱━⬣\n┃📥 YOUTUBE DL 📥\n┃ও *📌TÍTULO* \n┃» ${tl}\n┃﹘﹘﹘﹘﹘﹘﹘﹘﹘﹘﹘﹘\n┃ও *⚖️PESO*\n┃» ${size}\n╰━❰ *DAKI* ❱━⬣`.trim();
-              
-              await Skye.sendMessage(m.chat, {
-                document: { url: dl_url },
-                caption: cap,
-                mimetype: 'audio/mpeg',
-                fileName: `${tl}.mp3`,
-                contextInfo: {
-                  externalAdReply: {
-                    title: tl,
-                    body: "",
-                    thumbnailUrl: yt_play.videos[0].thumbnail,
-                    mediaType: 1,
-                    showAdAttribution: true,
-                    renderLargerThumbnail: true,
-                  },
-                },
-              }, { quoted: m });
-              break;
-            
-            
-            
-            case 'play2': //By Flávio
-            case 'song': {
-                if(!q) return SkyeEnviar(`${prefix+command} link ou nome`);
-                const musica = require('./lib/ytdl3')
-                let yts = require("youtube-yts")
-                SkyeEnviar(`Ola *${pushname}* aguarde Um Momento`);
-                let pesquisa = await yts(q)
-                let resultado = pesquisa.videos[0]
-                const pedido = await musica.mp3(resultado.url)
-                await Skye.sendMessage(m.chat, {
-                    audio: fs.readFileSync(pedido.path),
-                    fileName: resultado.title + '.mp3',
-                    mimetype: 'audio/mp4',
-                    ptt: false,
-                    contextInfo: {
+                          const mtq = require('yt-search');
+                        
+                          const ytp_play = await mtq(q);
+                          if (!ytp_play || ytp_play.videos.length === 0) {
+                            console.log('Nenhum vídeo encontrado para a pesquisa.');
+                            return reply('Nenhum vídeo encontrado para a pesquisa.');
+                          }
+                          
+                          const qmq = '720';
+                          const qla = qmq + 'p';
+                          const vvs = ytp_play.videos[0].url;
+                        
+                          if (!vvs || typeof vvs !== 'string') {
+                            console.log('Erro ao obter o vídeo. Valor de v:', vvs);
+                            SkyeEnviar(`Ola *${pushname}* aguarde Um Momento`);
+                            return reply('Erro ao obter o vídeo.');
+                          }
+                        
+                          const ytp = await youtubedl(vvs).catch(async (_) => await youtubedlv2(vvs));
+                          const dlt_url = await ytp.video[qla].download();
+                          const tssl = await ytp.title;
+                          const sizeas = await ytp.video[qla].fileSizeH;
+                        
+                          await Skye.sendMessage(m.chat, {
+                            video : { url: dlt_url },
+                            caption: `╭━❰  Daki  ❱━⬣\n┃📥 YOUTUBE DL 📥\n┃ও *TÍTULO:* \n┃» ${tssl}\n┃﹘﹘﹘﹘﹘﹘﹘﹘﹘﹘﹘﹘\n┃ও *PESO:*\n┃» ${sizeas}\n╰━❰ *Daki* ❱━⬣`,
+                            fileName: `${tssl}.mp4`,
+                            mimetype: 'video/mp4',
+                            contextInfo: {
+                              externalAdReply: {
+                                title: tssl,
+                                body: "",
+                                thumbnailUrl: ytp_play.videos[0].thumbnail,
+                                mediaType: 2,
+                                showAdAttribution: true,
+                                renderLargerThumbnail: true,
+                              },
+                            },
+                          }, { quoted: m });
+                          break;
+                        
+                        case 'play': //by Flavio
+                        if (!q) return SkyeEnviar(`${prefix + command} link ou nome`);
+                        
+                          const mstt = require('yt-search');
+                        
+                          const ytai_play = await mstt(q);
+                          if (!ytai_play || ytai_play.videos.length === 0) {
+                            console.log('Nenhum vídeo encontrado para a pesquisa.');
+                            return reply('Nenhum vídeo encontrado para a pesquisa.');
+                          }
+                        let qw = '128kbps'
+                        
+                        const vi = ytai_play.videos[0].url;
+                          
+                          if (!vi || typeof vi !== 'string') {
+                            console.log('Erro ao obter o vídeo. Valor de v:', vi);
+                            return reply('Erro ao obter o vídeo.');
+                          }
+                          
+                          console.log('Valor de v:', vi);
+                          
+                          SkyeEnviar(`Ola *${pushname}* aguarde Um Momento`);
+                          
+                        const ytai = await youtubedl(vi).catch(async _ => await youtubedlv2(vi))
+                        const dlh_url = await ytai.audio[qw].download()
+                        const tyl = await ytai.title
+                        const sizre = await ytai.audio[qw].fileSizeH
+                        await Skye.sendMessage(m.chat, { audio: { url: dlh_url }, mimetype: 'audio/mpeg', contextInfo: {
                         externalAdReply: {
-                            title: `Pedido Por: ${pushname}`,
-                            body: `0:00 ━━━●──── ${resultado.timestamp}`,
-                            thumbnail: await fetchBuffer(pedido.meta.image),
-                            mediaType: 1,
-                            mediaUrl: resultado.url,
+                        title: tyl,
+                        body: "",
+                        thumbnail: await fetchBuffer(ytai_play.videos[0].thumbnail),
+                        mediaType: 1,
+                        showAdAttribution: true,
+                        renderLargerThumbnail: true
+                        }}} , { quoted: m })
+                        break
+                        
+                        case 'mp4doc': // By Flávio
+                          if (!q) return SkyeEnviar(`${prefix + command} link ou nome`);
+                        
+                          const mt = require('yt-search');
+                        
+                          const ytt_play = await mt(q);
+                          if (!ytt_play || ytt_play.videos.length === 0) {
+                            console.log('Nenhum vídeo encontrado para a pesquisa.');
+                            return reply('Nenhum vídeo encontrado para a pesquisa.');
+                          }
+                          
+                          const qu = '720';
+                          const qq = qu + 'p';
+                          const vs = ytt_play.videos[0].url;
+                        
+                          if (!vs || typeof vs !== 'string') {
+                            console.log('Erro ao obter o vídeo. Valor de v:', vs);
+                            SkyeEnviar(`Ola *${pushname}* aguarde Um Momento`);
+                            return reply('Erro ao obter o vídeo.');
+                          }
+                        
+                          const ytt = await youtubedl(vs).catch(async (_) => await youtubedlv2(vs));
+                          const dls_url = await ytt.video[qq].download();
+                          const tsl = await ytt.title;
+                          const sizes = await ytt.video[qq].fileSizeH;
+                        
+                          await Skye.sendMessage(m.chat, {
+                            document: { url: dls_url },
+                            caption: `╭━❰  Daki  ❱━⬣\n┃📥 YOUTUBE DL 📥\n┃ও *TÍTULO:* \n┃» ${tsl}\n┃﹘﹘﹘﹘﹘﹘﹘﹘﹘﹘﹘﹘\n┃ও *PESO:*\n┃» ${sizes}\n╰━❰ *Daki* ❱━⬣`,
+                            fileName: `${tsl}.mp4`,
+                            mimetype: 'video/mp4',
+                            contextInfo: {
+                              externalAdReply: {
+                                title: tsl,
+                                body: "",
+                                thumbnailUrl: ytt_play.videos[0].thumbnail,
+                                mediaType: 2,
+                                showAdAttribution: true,
+                                renderLargerThumbnail: true,
+                              },
+                            },
+                          }, { quoted: m });
+                          break;
+                        
+                        case 'playdoc': //By Flávio
+                          if (!q) return SkyeEnviar(`${prefix + command} link ou nome`);
+                          
+                          const ytsk = require('yt-search');
+                        
+                          const yt_play = await ytsk(q);
+                          if (!yt_play || yt_play.videos.length === 0) {
+                            console.log('Nenhum vídeo encontrado para a pesquisa.');
+                            return reply('Nenhum vídeo encontrado para a pesquisa.');
+                          }
+                          
+                          const qc = '128kbps';
+                          const v = yt_play.videos[0].url;
+                          
+                          if (!v || typeof v !== 'string') {
+                            console.log('Erro ao obter o vídeo. Valor de v:', v);
+                            return reply('Erro ao obter o vídeo.');
+                          }
+                          
+                          console.log('Valor de v:', v);
+                          
+                          SkyeEnviar(`Ola *${pushname}* aguarde Um Momento`);
+                          const yt = await youtubedl(v).catch(async (_) => await youtubedlv2(v));
+                          const dl_url = await yt.audio[qc].download();
+                          const tl = await yt.title;
+                          const size = await yt.audio[qc].fileSizeH;
+                          const cap = `╭━❰  *DAKI* ❱━⬣\n┃📥 YOUTUBE DL 📥\n┃ও *📌TÍTULO* \n┃» ${tl}\n┃﹘﹘﹘﹘﹘﹘﹘﹘﹘﹘﹘﹘\n┃ও *⚖️PESO*\n┃» ${size}\n╰━❰ *DAKI* ❱━⬣`.trim();
+                          
+                          await Skye.sendMessage(m.chat, {
+                            document: { url: dl_url },
+                            caption: cap,
+                            mimetype: 'audio/mpeg',
+                            fileName: `${tl}.mp3`,
+                            contextInfo: {
+                              externalAdReply: {
+                                title: tl,
+                                body: "",
+                                thumbnailUrl: yt_play.videos[0].thumbnail,
+                                mediaType: 1,
+                                showAdAttribution: true,
+                                renderLargerThumbnail: true,
+                              },
+                            },
+                          }, { quoted: m });
+                          break;
+                        
+                        
+                        
+                        case 'play2': //By Flávio
+                        case 'song': {
+                            if(!q) return SkyeEnviar(`${prefix+command} link ou nome`);
+                            const musica = require('./lib/ytdl3')
+                            let yts = require("youtube-yts")
+                            SkyeEnviar(`Ola *${pushname}* aguarde Um Momento`);
+                            let pesquisa = await yts(q)
+                            let resultado = pesquisa.videos[0]
+                            const pedido = await musica.mp3(resultado.url)
+                            await Skye.sendMessage(m.chat, {
+                                audio: fs.readFileSync(pedido.path),
+                                fileName: resultado.title + '.mp3',
+                                mimetype: 'audio/mp4',
+                                ptt: false,
+                                contextInfo: {
+                                    externalAdReply: {
+                                        title: `Pedido Por: ${pushname}`,
+                                        body: `0:00 ━━━●──── ${resultado.timestamp}`,
+                                        thumbnail: await fetchBuffer(pedido.meta.image),
+                                        mediaType: 1,
+                                        mediaUrl: resultado.url,
+                                    }
+                                },
+                            }, { quoted: selo })
+                            await fs.unlinkSync(pedido.path)
                         }
-                    },
-                }, { quoted: selo })
-                await fs.unlinkSync(pedido.path)
-            }
-            break;
-            
-            case 'mp4': //By Flávio
-            case 'ytvideo':
-            {
-                if (!q) return SkyeEnviar(`${prefix + command} Digite o termo de pesquisa`);
-                const yts = require('youtube-yts');
-                const video = require('./lib/ytdl2');
-                SkyeEnviar(`Ola *${pushname}* aguarde Um Momento`);
-                async function pesquisarVideoNoYoutube(query) {
-                    try {
-                        const result = await yts(query);
-                        return result.videos;
-                    } catch (error) {
-                        console.error('Erro ao pesquisar vídeos no YouTube:', error);
-                        return [];
-                    }
-                }
-                const resultadosPesquisa = await pesquisarVideoNoYoutube(q);
-                if (resultadosPesquisa.length === 0) {
-                    return reply("Nenhum vídeo encontrado para a consulta de pesquisa.");
-                }
-                const primeiroResultado = resultadosPesquisa[0];
-                const pesquisa = await video.mp4(primeiroResultado.url);
-                const resultados = `
-            *📌 Título:* ${pesquisa.title}
-            *📆 Data:* ${pesquisa.date}
-            *⏳ Duração:* ${pesquisa.duration}
-            *🎞️ Qualidade:* ${pesquisa.quality}`;
-                await Skye.sendMessage(m.chat, {
-                    video: {
-                        url: pesquisa.videoUrl,
-                        mimetype: 'video/mp4',
-                    },
-                    caption: resultados
-                }, { quoted: m });
-            }
-            break;
-            
-            
-            
-            
-            
-            case 'ytmp4': case 'ytvideo': { //By Flávio
-            const video = require('./lib/ytdl2')
-            if(!q) return SkyeEnviar(`${prefix+command} link Do Video`);
-                SkyeEnviar(`Ola *${pushname}* aguarde Um Momento`);
-            const pesquisa = await video.mp4(q)
-            const resultados = `
-            *📌Titulo:* ${pesquisa.title}
-            *📆Data:* ${pesquisa.date}
-            *⏳Duração:* ${pesquisa.duration}
-            *🎞️Qualidade:* ${pesquisa.quality}`
-            await Skye.sendMessage(m.chat, {
-                video: { url: pesquisa.videoUrl },
-                caption: resultados
-            },{ quoted: m })
-            }
-            break
-            */
+                        break;
+                        
+                        case 'mp4': //By Flávio
+                        case 'ytvideo':
+                        {
+                            if (!q) return SkyeEnviar(`${prefix + command} Digite o termo de pesquisa`);
+                            const yts = require('youtube-yts');
+                            const video = require('./lib/ytdl2');
+                            SkyeEnviar(`Ola *${pushname}* aguarde Um Momento`);
+                            async function pesquisarVideoNoYoutube(query) {
+                                try {
+                                    const result = await yts(query);
+                                    return result.videos;
+                                } catch (error) {
+                                    console.error('Erro ao pesquisar vídeos no YouTube:', error);
+                                    return [];
+                                }
+                            }
+                            const resultadosPesquisa = await pesquisarVideoNoYoutube(q);
+                            if (resultadosPesquisa.length === 0) {
+                                return reply("Nenhum vídeo encontrado para a consulta de pesquisa.");
+                            }
+                            const primeiroResultado = resultadosPesquisa[0];
+                            const pesquisa = await video.mp4(primeiroResultado.url);
+                            const resultados = `
+                        *📌 Título:* ${pesquisa.title}
+                        *📆 Data:* ${pesquisa.date}
+                        *⏳ Duração:* ${pesquisa.duration}
+                        *🎞️ Qualidade:* ${pesquisa.quality}`;
+                            await Skye.sendMessage(m.chat, {
+                                video: {
+                                    url: pesquisa.videoUrl,
+                                    mimetype: 'video/mp4',
+                                },
+                                caption: resultados
+                            }, { quoted: m });
+                        }
+                        break;
+                        
+                        
+                        
+                        
+                        
+                        case 'ytmp4': case 'ytvideo': { //By Flávio
+                        const video = require('./lib/ytdl2')
+                        if(!q) return SkyeEnviar(`${prefix+command} link Do Video`);
+                            SkyeEnviar(`Ola *${pushname}* aguarde Um Momento`);
+                        const pesquisa = await video.mp4(q)
+                        const resultados = `
+                        *📌Titulo:* ${pesquisa.title}
+                        *📆Data:* ${pesquisa.date}
+                        *⏳Duração:* ${pesquisa.duration}
+                        *🎞️Qualidade:* ${pesquisa.quality}`
+                        await Skye.sendMessage(m.chat, {
+                            video: { url: pesquisa.videoUrl },
+                            caption: resultados
+                        },{ quoted: m })
+                        }
+                        break
+                        */
 
             // Case para fazer figurinhas QC
             case 'qc': {
@@ -1561,11 +1561,13 @@ module.exports = Skye = async (Skye, m, msg, chatUpdate, store) => {
 
             // Case menu para donos
             case 'menudono':
-            if (!SkyeCreator) return SkyeEnviar(SkyeMensagens.dono)
-                let dakimenu2 = `👋 Olá, como vai ${pushname}?
+                if (!SkyeCreator) return SkyeEnviar(SkyeMensagens.dono)
+                let skyemenudono = `👋 Olá, como vai ${pushname}?
 Sou a Skye, um BOT desenvolvido para auxiliar o seu uso no WhatsApp
 *Segue abaixo meus comandos para dono!* 🙋‍♂️
 
+✦ adddono 
+✦ deldono
 ✦ pegarsessao
 ✦ apagarsessao
 ✦ rr
@@ -1582,17 +1584,49 @@ Sou a Skye, um BOT desenvolvido para auxiliar o seu uso no WhatsApp
 ✦ sairgp
 `
 
+                Skye.sendMessage(m.chat, {
+                    image: fs.readFileSync('./Medias/thumb.jpg'),
+                    caption: skyemenudono
+                }, {
+                    quoted: m
+                })
+                break
+
+                case 'menugrupos':
+                case 'menugrupo':
+                    if (!SkyeCreator) return SkyeEnviar(SkyeMensagens.dono)
+                    let skyemenu2 = `👋 Olá, como vai ${pushname}?
+    Sou a Skye, um BOT desenvolvido para auxiliar o seu uso no WhatsApp
+    *Segue abaixo meus comandos para grupos!* 🙋‍♂️
+    
+    ✦ fechargptempo
+    ✦ abrigptempo
+    ✦ kick
+    ✦ add
+    ✦ promote
+    ✦ demote
+    ✦ descgp
+    ✦ fotogp
+    ✦ marca
+    ✦ hidetag
+    ✦ totag
+    ✦ grupo [opção]
+    ✦ editinfo
+    ✦ linkgp
+    ✦ revoke
+    `
+    
                     Skye.sendMessage(m.chat, {
                         image: fs.readFileSync('./Medias/thumb.jpg'),
-                        caption: dakimenu2
+                        caption: skyemenu2
                     }, {
                         quoted: m
                     })
-                break
+                    break
 
             // Case menu geral
             case 'menu':
-                let menus = `\n*E aí ${pushname}!* Bom te ver por aqui, viu?\n
+                let skyemneu = `*E aí ${pushname}!* Bom te ver por aqui, viu?\n
 🔮 Você pode me chamar de Skye, sou uma BOT desenvolvida para facilitar seu uso no WhatsApp.
 
 *Segue abaixo meus comandos!* 
@@ -1622,37 +1656,19 @@ Sou a Skye, um BOT desenvolvido para auxiliar o seu uso no WhatsApp
 ✦ tiktok (Link do vídeo) *(Sem suporte com vídeos com imagens)*
 ✦ instagram (Link do reels/stories/postagem)
 ✦ twitter (Link do vídeo) *(Sem suporte com tweets com imagem)*
-
-👫 Comandos para grupo!
-✦ fechargptempo
-✦ abrigptempo
-✦ kick
-✦ add
-✦ promote
-✦ demote
-✦ descgp
-✦ fotogp
-✦ marca
-✦ hidetag
-✦ totag
-✦ grupo [opção]
-✦ editinfo
-✦ linkgp
-✦ revoke
 `
-                    Skye.sendMessage(m.chat, {
-                        image: fs.readFileSync('./Medias/menuinicio.png'),
-                        caption: menus
-                    }, {
-                        quoted: m
-                    })
+                Skye.sendMessage(m.chat, {
+                    image: fs.readFileSync('./Medias/menuinicio.png'),
+                    caption: skyemneu
+                }, {
+                    quoted: m
+                })
                 break
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Comandos sem prefixo                
             default:
-                if (budy.startsWith('=>')) { // Definição para executar linhas de código
+                if (budy.startsWith('=>')) { // Definição para executar linhas de código no proprio chat do WhatsApp
                     if (!SkyeCreator) return SkyeEnviar(SkyeMensagens.dono)
-
                     function Return(sul) {
                         sat = JSON.stringify(sul, null, 2)
                         bang = util.format(sat)
@@ -1697,6 +1713,7 @@ fs.watchFile(file, () => {
     console.log(chalk.redBright(`❗️ Atualização detectada em ${__filename}`)) // Log para atualizações detectadas neste arquivo
     delete require.cache[file]
     require(file)
+    process.exit() // Para reiniciar o BOT após alguma alteração detectada
 })
 
 process.on('uncaughtException', function (err) {

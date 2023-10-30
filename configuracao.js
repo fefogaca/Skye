@@ -76,4 +76,5 @@ fs.watchFile(file, () => {
     console.log(chalk.redBright(`❗️ Atualização detectada em '${__filename}'`))
     delete require.cache[file]
     require(file)
+    process.exit() // Para reiniciar o BOT após alguma alteração detectada
 })
