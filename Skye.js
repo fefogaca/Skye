@@ -1592,9 +1592,11 @@ Sou a Skye, um BOT desenvolvido para auxiliar o seu uso no WhatsApp
                 })
                 break
 
+                // Case menu para grupos
                 case 'menugrupos':
                 case 'menugrupo':
-                    if (!SkyeCreator) return SkyeEnviar(SkyeMensagens.dono)
+                    if (!m.isGroup) return SkyeEnviar(SkyeMensagens.group)
+                    if (!isAdmins && !isGroupOwner && !SkyeCreator) return SkyeEnviar(SkyeMensagens.admin)
                     let skyemenu2 = `👋 Olá, como vai ${pushname}?
     Sou a Skye, um BOT desenvolvido para auxiliar o seu uso no WhatsApp
     *Segue abaixo meus comandos para grupos!* 🙋‍♂️
