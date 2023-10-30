@@ -52,14 +52,14 @@ global.typemenu = 'v1'
 //reply messages
 global.mess = {
     done: '✅ Concluido com sucesso!',
-    prem: '❌ Este recurso pode ser usado apenas por usuários premium!',
-    admin: '❌ Este recurso pode ser usado apenas pelo administrador!',
-    botAdmin: '❌ Este recurso só pode ser usado quando o BOT é administrador do grupo!',
-    owner: '❌ Este recurso pode ser usado apenas pelo proprietário!',
-    group: '❌ Este recurso é apenas para grupos',
-    private: '❌ Este recurso é apenas para bate-papos privados',
-    wait: '🕘 Processando por favor aguarde...',    
-    error: '❌ Erro!',
+    prem: 'Opa, somente usuários apoiadores podem utilizar esse recurso.',
+    admin: 'Somente o(s) administrador(es) pode usar esse recurso.',
+    botAdmin: 'Puts, eu preciso ser administradora do grupo para fazer isso.',
+    owner: 'Eita, parece que esse é um comando dos meus desenvolvedores.',
+    group: 'Esse é um recurso para ser usado em grupos!',
+    private: 'Psiu! Você deve utilizar esse comando no privado comigo.',
+    wait: '🕘 Processando a solicitação, aguarde...',    
+    error: 'Eita, parece que houve um erro por aqui.'
 }
 
 global.thumb = fs.readFileSync('./Medias/thumb.jpg')

@@ -201,11 +201,11 @@ module.exports = Aurora = async (Aurora, m, msg, chatUpdate, store) => {
 
         if (m.message && m.isGroup) {
             console.log(chalk.bold.magenta(`GRUPO`) + ' (' + chalk.whiteBright(groupName) + chalk.whiteBright(' | ID: ' + m.chat) + ')')
-            console.log(roxoconsole('NOME:'), chalk.whiteBright(pushname) + ' & ' + roxoconsole('TELEFONE:'), chalk.whiteBright(m.sender.split("@")[0]))
+            console.log(roxoconsole('NOME:'), chalk.whiteBright(pushname) + ' ' + roxoconsole('TELEFONE:'), chalk.whiteBright(m.sender.split("@")[0]))
             console.log(roxoconsole('MENSAGEM:'), (chalk.whiteBright(budy || m.mtype)) + '\n')
         } else {
             console.log(chalk.bold.magenta(`\nPRIVADO`) + ' ' + chalk.whiteBright('(https://wa.me/' + m.sender.split("@")[0]+')'))
-            console.log(roxoconsole('NOME:'), chalk.whiteBright(pushname) + ' & ' + roxoconsole('TELEFONE:'), chalk.whiteBright(m.sender.split("@")[0]))
+            console.log(roxoconsole('NOME:'), chalk.whiteBright(pushname) + ' ' + roxoconsole('TELEFONE:'), chalk.whiteBright(m.sender.split("@")[0]))
             console.log(roxoconsole('MENSAGEM:'), (chalk.whiteBright(budy || m.mtype)) + '\n')
         }
 
@@ -1304,15 +1304,19 @@ module.exports = Aurora = async (Aurora, m, msg, chatUpdate, store) => {
 
 
             case 'mensagem':
-                if (!isCreator) return enviar(mess.dono)
-                if (!text) return enviar(`❌ Cade o número e o texto?\nExemplo: ${prefix + command} numero/texto`)
-                enviar(mess.wait)
-                numero = text.split('/')[0] ? text.split('/')[0] : '-'
-                texto = text.split('/')[1] ? text.split('/')[1] : '-'
-                if (numero.includes("-")) return reply('❌ Precisa ser número junto sem "-"')
-                if (numero.includes("+")) return reply('❌ Precisa ser número junto sem "+", e não pode tá separado da /!')
-                Aurora.sendMessage(`${numero}@s.whatsapp.net`, { text: texto })
-                enviar(`✅ Mensagem enviada com sucesso!`)
+                if (!isCreator) return enviar(mess.owner)
+                if (!text) return enviar(`Nenhum número e/ou texto informados.\nExemplo: ${prefix + command} numero/texto`)
+                try {
+                    numero = text.split('/ ')[0] ? text.split('/')[0] : '-'
+                    texto = text.split('/')[1] ? text.split('/')[1] : '-'
+                    if (numero.includes("-")) return reply('O número precisa ser junto e não conter "-"')
+                    if (numero.includes("+")) return reply('❌ Precisa ser número junto sem "+", e não pode tá separado da /!')
+                    Aurora.sendMessage(`${numero}@s.whatsapp.net`, { text: texto })
+                    enviar(`✅ Mensagem enviada com sucesso!`)
+                } catch (e) {
+                    enviar("Um erro ocorreu. Contate um desenvolvedor para que verifique as logs do console.")
+                    console.log(e)
+                }
                 break
 
             case 'pix':
@@ -1330,13 +1334,13 @@ module.exports = Aurora = async (Aurora, m, msg, chatUpdate, store) => {
                     let inf = await pagament.create_payment(args.join(" "))
                     console.log("🛑 Um novo pagamento foi gerado!") //+inf
                     await Aurora.sendMessage(from, { image: Buffer.from(inf.qr_code, "base64"), caption: `✅ QRCode gerado com sucesso!` })
-                    await Aurora.sendMessage(from, { text: '👇🏼 Olha só, esse é o código copia e cola caso não consiga usar a imagem acima:' })
+                    await Aurora.sendMessage(from, { text: '👇🏼 Olha só, esse é o código copia e cola caso não consiga usar a imagem acima.' })
                     await Aurora.sendMessage(from, { text: inf.copy_paste })
 
                     let check = await pagament.check_payment();
 
                     while (check.status == 'pending') { check = await pagament.check_payment() }
-                    if (check.status == "approved") { return console.log("✅  Novo pagamento aprovado!") + enviar("Oba! Seu pagamento foi aprovado e reconhecido.\n *Muuuito obrigada!* 💜") + Aurora.sendMessage(`5511941212232@s.whatsapp.net`, { text: "✅ Novo pagamento aprovado verique o Mercado Pago!" }) }
+                    if (check.status == "approved") { return console.log("✅  Novo pagamento aprovado!") + enviar("Oba! Seu pagamento foi aprovado e reconhecido.\n *Muuuito obrigada!* 💜") + Aurora.sendMessage(`5511941212232@s.whatsapp.net`, { text: "✅ Novo pagamento aprovado verique o Mercado Pago!" }) + Aurora.sendMessage(`5585991487204@s.whatsapp.net`, { text: "✅ Novo pagamento aprovado verique o Mercado Pago!" }) }
                     return enviar("Eita! Parece que o tempo de pagamento expirou.")
                 } catch (e) {
                     console.log(e)
@@ -1565,7 +1569,7 @@ Sou a Aurora, um BOT desenvolvido para auxiliar o seu uso no WhatsApp
                 break
 
             case 'menu':
-                let menus = `\n*Oi ${pushname}!*\nBom te ver por aqui.\n
+                let menus = `\n*E aí ${pushname}!* Bom te ver por aqui, viu?\n
 🔮 Você pode me chamar de Skye, sou uma BOT desenvolvida para facilitar seu uso no WhatsApp.
 
 *Segue abaixo meus comandos!* 
