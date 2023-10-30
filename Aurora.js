@@ -1296,6 +1296,7 @@ enviar(mess.wait)
 
 
 case 'mensagem':
+if (!isCreator) return enviar(mess.dono)
 if (!text) return enviar(`❌ Cade o número e o texto?\nExemplo: ${prefix + command} numero/texto`)
 enviar(mess.wait)
 numero = text.split('/')[0] ? text.split('/')[0] : '-'
