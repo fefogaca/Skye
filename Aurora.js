@@ -25,39 +25,40 @@ const { smsg, getGroupAdmins, formatp, jam, formatDate, getTime, isUrl, await, s
 let afk = require("./lib/afk");
 const { addPremiumUser, getPremiumExpired, getPremiumPosition, expiredCheck, checkPremiumUser, getAllPremiumUser } = require('./lib/premiun')
 const { fetchBuffer, buffergif } = require("./lib/myfunc2")
-const ytdl  = require('ytdl-core');
-const {youtubedl, youtubedlv2}  = require('@bochilteam/scraper');
-const { payment } = require("./lib/PixAPI-MercadoPago-Js/index.js")
+const ytdl = require('ytdl-core');
+const { youtubedl, youtubedlv2 } = require('@bochilteam/scraper');
+const { payment } = require("./lib/pix_mp/index.js")
 
 //database
 let premium = JSON.parse(fs.readFileSync('./database/premium.json'))
 let dono2 = JSON.parse(fs.readFileSync('./database/dono.json'))
 let dono = JSON.parse(fs.readFileSync('./database/dono.json'))
+let numdev = JSON.parse(fs.readFileSync('./database/numdev.json'))
 let _afk = JSON.parse(fs.readFileSync('./database/afk-user.json'))
 let hit = JSON.parse(fs.readFileSync('./database/total-hit-user.json'))
 
 //tempo
 const Tempo = moment.tz('America/Sao_Paulo').format('HH:mm:ss')
-        const Data = moment.tz('America/Sao_Paulo').format('DD/MM/YYYY')
-        const time2 = moment().tz('America/Sao_Paulo').format('HH:mm:ss')  
-         if(time2 < "00:00:00"){
-var Horas = `Boa Madrugada 🌌`
- }
- if(time2 < "19:00:00"){
-var Horas = `Boa noite 🌃`
- }
- if(time2 < "18:00:00"){
-var Horas = `Boa noite 🌃`
- }
- if(time2 < "15:00:00"){
-var Horas = `Boa tarde 🌅`
- }
- if(time2 < "11:00:00"){
-var Horas = `Bom dia 🌄`
- }
- if(time2 < "05:00:00"){
-var Horas = `Bom dia 🌄`
- } 
+const Data = moment.tz('America/Sao_Paulo').format('DD/MM/YYYY')
+const time2 = moment().tz('America/Sao_Paulo').format('HH:mm:ss')
+if (time2 < "00:00:00") {
+    var Horas = `Boa Madrugada 🌌`
+}
+if (time2 < "19:00:00") {
+    var Horas = `Boa noite 🌃`
+}
+if (time2 < "18:00:00") {
+    var Horas = `Boa noite 🌃`
+}
+if (time2 < "15:00:00") {
+    var Horas = `Boa tarde 🌅`
+}
+if (time2 < "11:00:00") {
+    var Horas = `Bom dia 🌄`
+}
+if (time2 < "05:00:00") {
+    var Horas = `Bom dia 🌄`
+}
 module.exports = Aurora = async (Aurora, m, msg, chatUpdate, store) => {
     try {
         const {
@@ -101,7 +102,7 @@ module.exports = Aurora = async (Aurora, m, msg, chatUpdate, store) => {
         const sticker = []
         const isAfkOn = afk.checkAfkUser(m.sender, _afk)
         const isGroup = m.key.remoteJid.endsWith('@g.us')
-        const groupMetadata = m.isGroup ? await Aurora.groupMetadata(m.chat).catch(e => {}) : ''
+        const groupMetadata = m.isGroup ? await Aurora.groupMetadata(m.chat).catch(e => { }) : ''
         const groupName = m.isGroup ? groupMetadata.subject : ''
         const participants = m.isGroup ? await groupMetadata.participants : ''
         const groupAdmins = m.isGroup ? await getGroupAdmins(participants) : ''
@@ -112,40 +113,42 @@ module.exports = Aurora = async (Aurora, m, msg, chatUpdate, store) => {
         const isCreator = [ownernumber, ...dono2].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
         const isPremium = isCreator || isCreator || checkPremiumUser(m.sender, premium);
         expiredCheck(Aurora, m, premium);
-//mensagem de bate-papo em grupo
-const enviar = (teks) => {
-Aurora.sendMessage(m.chat,
-{ text: teks,
-contextInfo:{
-mentionedJid:[sender],
-/*"externalAdReply": {
-"showAdAttribution": true,
-"containsAutoReply": true,
-"title": ` ${global.botname}`,
-"body": `${ownername}`,
-"previewType": "PHOTO",
-"thumbnailUrl": `https://telegra.ph/file/e1ecc93149ae85ad1b860.jpg`,
-"thumbnail": fs.readFileSync(`./Medias/aurorathumb.jpg`),
-"sourceUrl": `${link}`}*/
-}},
-{ quoted: m})
-}
+        //mensagem de bate-papo em grupo
+        const enviar = (teks) => {
+            Aurora.sendMessage(m.chat,
+                {
+                    text: teks,
+                    contextInfo: {
+                        mentionedJid: [sender],
+                        /*"externalAdReply": {
+                        "showAdAttribution": true,
+                        "containsAutoReply": true,
+                        "title": ` ${global.botname}`,
+                        "body": `${ownername}`,
+                        "previewType": "PHOTO",
+                        "thumbnailUrl": `https://telegra.ph/file/e1ecc93149ae85ad1b860.jpg`,
+                        "thumbnail": fs.readFileSync(`./Medias/aurorathumb.jpg`),
+                        "sourceUrl": `${link}`}*/
+                    }
+                },
+                { quoted: m })
+        }
 
-async function loading () {
-var xeonlod = [
-"《 █▒▒▒▒▒▒▒▒▒▒▒》10%",
-"《 ████▒▒▒▒▒▒▒▒》30%",
-"《 ███████▒▒▒▒▒》50%",
-"《 ██████████▒▒》80%",
-"《 ████████████》100%",
-"Carregado com Sucesso 📌..."
-]
-let { key } = await Aurora.sendMessage(from, {text: 'Concluido...'})
+        async function loading() {
+            var xeonlod = [
+                "《 █▒▒▒▒▒▒▒▒▒▒▒》10%",
+                "《 ████▒▒▒▒▒▒▒▒》30%",
+                "《 ███████▒▒▒▒▒》50%",
+                "《 ██████████▒▒》80%",
+                "《 ████████████》100%",
+                "Carregado com Sucesso 📌..."
+            ]
+            let { key } = await Aurora.sendMessage(from, { text: 'Concluido...' })
 
-for (let i = 0; i < xeonlod.length; i++) {
-await Aurora.sendMessage(from, {text: xeonlod[i], edit: key });
-}
-}
+            for (let i = 0; i < xeonlod.length; i++) {
+                await Aurora.sendMessage(from, { text: xeonlod[i], edit: key });
+            }
+        }
 
         if (!Aurora.public) {
             if (!isCreator && !m.key.fromMe) return
@@ -155,30 +158,30 @@ await Aurora.sendMessage(from, {text: xeonlod[i], edit: key });
         }
         if (global.autoTyping) {
 
-        Aurora.sendPresenceUpdate('composing', from)
+            Aurora.sendPresenceUpdate('composing', from)
 
 
         }
 
         if (global.autoRecording) {
 
-        Aurora.sendPresenceUpdate('recording', from)
+            Aurora.sendPresenceUpdate('recording', from)
 
         }
 
-        
+
         //status online do número do bot, disponível=online, indisponível=offline
         Aurora.sendPresenceUpdate('unavailable', from)
-        
+
         if (global.autorecordtype) {
-        let xeonrecordin = ['recording','composing']
+            let xeonrecordin = ['recording', 'composing']
 
-        let xeonrecordinfinal = xeonrecordin[Math.floor(Math.random() * xeonrecordin.length)]
+            let xeonrecordinfinal = xeonrecordin[Math.floor(Math.random() * xeonrecordin.length)]
 
-        Aurora.sendPresenceUpdate(xeonrecordinfinal, from)
+            Aurora.sendPresenceUpdate(xeonrecordinfinal, from)
 
         }
-        
+
         if (autobio) {
             Aurora.updateProfileStatus(`BOT Online, desenvolvido por ${ownername}`).catch(_ => _)
         }
@@ -186,24 +189,24 @@ await Aurora.sendMessage(from, {text: xeonlod[i], edit: key });
             return Aurora.updateBlockStatus(m.sender, 'block')
         }
         let list = []
-        for (let i of dono) {
-list.push({
-	    	displayName: await Aurora.getName(i),
-	    	vcard: `BEGIN:VCARD\nVERSION:3.0\nN:${await Aurora.getName(i)}\nFN:${await Aurora.getName(i)}\nitem1.TEL;waid=${i}:${i}\nitem1.X-ABLabel:Click here to chat\nitem2.EMAIL;type=INTERNET:${ytname}\nitem2.X-ABLabel:YouTube\nitem3.URL:${socialm}\nitem3.X-ABLabel:GitHub\nitem4.ADR:;;${location};;;;\nitem4.X-ABLabel:Region\nEND:VCARD`
-	    })
-	}
-	
-	//contador de bate-papo (registro do console)
+        for (let i of numdev) {
+            list.push({
+                displayName: await Aurora.getName(i),
+                vcard: `BEGIN:VCARD\nVERSION:3.0\nN:${await Aurora.getName(i)}\nFN:${await Aurora.getName(i)}\nitem1.TEL;waid=${i}:${i}\nitem1.X-ABLabel:Click here to chat\nitem2.EMAIL;type=INTERNET:${ytname}\nitem2.X-ABLabel:YouTube\nitem3.URL:${socialm}\nitem3.X-ABLabel:GitHub\nitem4.ADR:;;${location};;;;\nitem4.X-ABLabel:Region\nEND:VCARD`
+            })
+        }
+
+        //contador de bate-papo (registro do console)
+        const roxoconsole = chalk.bold.hex("#6a41a3")
+
         if (m.message && m.isGroup) {
-			console.log(chalk.blue(`Conversa em grupo:`))
-            console.log((chalk.blueBright('Mensagem:')), (chalk.whiteBright(budy || m.mtype)) + '\n' + chalk.blueBright('Usuário:'), chalk.whiteBright(pushname) + '\n' + chalk.blueBright('Grupo:'), chalk.whiteBright(groupName, m.chat))
-            console.log(chalk.blueBright('Telefone:'), chalk.whiteBright(m.sender.split("@")[0]))
-            console.log(chalk.green(``))
+            console.log(chalk.bold.magenta(`GRUPO`) + ' (' + chalk.whiteBright(groupName) + chalk.whiteBright(' | ID: ' + m.chat) + ')')
+            console.log(roxoconsole('NOME:'), chalk.whiteBright(pushname) + ' & ' + roxoconsole('TELEFONE:'), chalk.whiteBright(m.sender.split("@")[0]))
+            console.log(roxoconsole('MENSAGEM:'), (chalk.whiteBright(budy || m.mtype)) + '\n')
         } else {
-			console.log(chalk.blue(`Conversa no privado:`))
-            console.log((chalk.blueBright('Mensagem:')), (chalk.whiteBright(budy || m.mtype)) + '\n' + chalk.blueBright('Usuário:'), chalk.whiteBright(pushname))
-            console.log(chalk.blueBright('Telefone:'), chalk.whiteBright(m.sender.split("@")[0]))
-            console.log(chalk.green(``))
+            console.log(chalk.bold.magenta(`\nPRIVADO`) + ' ' + chalk.whiteBright('(https://wa.me/' + m.sender.split("@")[0]+')'))
+            console.log(roxoconsole('NOME:'), chalk.whiteBright(pushname) + ' & ' + roxoconsole('TELEFONE:'), chalk.whiteBright(m.sender.split("@")[0]))
+            console.log(roxoconsole('MENSAGEM:'), (chalk.whiteBright(budy || m.mtype)) + '\n')
         }
 
         if (command) {
@@ -214,7 +217,7 @@ list.push({
             cmdadd()
             const totalhit = JSON.parse(fs.readFileSync('./database/total-hit-user.json'))[0].hit_cmd
         }
-                
+
         if (m.isGroup && !m.key.fromMe) {
             let mentionUser = [...new Set([...(m.mentionedJid || []), ...(m.quoted ? [m.quoted.sender] : [])])]
             for (let ment of mentionUser) {
@@ -238,7 +241,7 @@ list.push({
         }
         switch (command) {
             case 'addprem':
-                case 'addpremium':
+            case 'addpremium':
                 if (!isCreator) return enviar(mess.dono)
                 if (args.length < 2)
                     return enviar(`Use :\n*#addprem* @\n*#addprem* numero tempo\n\nExemplo: #addprem @flavio 30d`);
@@ -276,8 +279,8 @@ list.push({
                 let txt = `*------「 LISTA PREMIUM 」------*\n\n`
                 for (let i of data) {
                     txt += `Número : ${i.id}\n`
-                    txt += `Expirado : ${i.expired} Segundo\n`         
-                }                
+                    txt += `Expirado : ${i.expired} Segundo\n`
+                }
                 Aurora.sendMessage(m.chat, {
                     text: txt,
                     mentions: i
@@ -285,13 +288,13 @@ list.push({
                     quoted: m
                 })
             }
-            break
+                break
 
             case 'apagarsessao':
             case 'delsession':
             case 'clearsession': {
                 if (!isCreator) return enviar(mess.dono)
-                fs.readdir("./session", async function(err, files) {
+                fs.readdir("./session", async function (err, files) {
                     if (err) {
                         console.log('Não foi possível verificar o diretório: ' + err);
                         return enviar('❗️ Não foi possível verificar o diretório: ' + err);
@@ -302,23 +305,23 @@ list.push({
                     console.log(filteredArray.length);
                     let teks = `Arquivos indesejados ${filteredArray.length} detectados\n\n`
                     if (filteredArray.length == 0) return enviar(teks)
-                    filteredArray.map(function(e, i) {
+                    filteredArray.map(function (e, i) {
                         teks += (i + 1) + `. ${e}\n`
                     })
                     enviar(teks)
                     await sleep(2000)
                     enviar("❗️ Exclua arquivos inúteis...")
-                    await filteredArray.forEach(function(file) {
+                    await filteredArray.forEach(function (file) {
                         fs.unlinkSync(`./session/${file}`)
                     });
                     await sleep(2000)
                     enviar("⚠️ Excluiu com sucesso toda a lixeira da pasta da sessão")
                 });
             }
-            break
+                break
 
             case 'entrargp':
-			case 'join':
+            case 'join':
                 try {
                     if (!isCreator) return enviar(mess.dono)
                     if (!text) return enviar('❗️ Insira o link do grupo!')
@@ -329,7 +332,7 @@ list.push({
                 } catch {
                     enviar('❌ Falha ao entrar no grupo')
                 }
-                break  
+                break
 
             case 'pegarsessao':
             case 'pegarsessão':
@@ -347,7 +350,7 @@ list.push({
 
             case 'shutdown':
             case 'desligar':
-			case 'rr':
+            case 'rr':
                 if (!isCreator) return enviar(mess.dono)
                 enviar(`🕘 Desligando...`)
                 await sleep(3000)
@@ -366,7 +369,7 @@ list.push({
                 }
                 break
 
-                case 'digitando':
+            case 'digitando':
                 if (!isCreator) return enviar(mess.dono)
                 if (args.length < 1) return enviar(`Exemplo ${prefix + command} on/off`)
                 if (q === 'on') {
@@ -378,7 +381,7 @@ list.push({
                 }
                 break
 
-                case 'gravandoaudio':
+            case 'gravandoaudio':
                 if (!isCreator) return enviar(mess.dono)
                 if (args.length < 1) return enviar(`Exemplo ${prefix + command} on/off`)
                 if (q === 'on') {
@@ -390,7 +393,7 @@ list.push({
                 }
                 break
 
-                case 'audiodigitando':
+            case 'audiodigitando':
                 if (!isCreator) return enviar(mess.dono)
                 if (args.length < 1) return enviar(`Exemplo ${prefix + command} on/off`)
                 if (q === 'on') {
@@ -402,8 +405,8 @@ list.push({
                 }
                 break
 
-                case 'visustatus':
-                case 'visualizarstatus':
+            case 'visustatus':
+            case 'visualizarstatus':
                 if (!isCreator) return enviar(mess.dono)
                 if (args.length < 1) return enviar(`Exemplo ${prefix + command} on/off`)
                 if (q === 'on') {
@@ -489,14 +492,14 @@ list.push({
                 if (!isCreator) return enviar(mess.dono)
                 let blockw = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
                 await Aurora.updateBlockStatus(blockw, 'block').then((res) => enviar(json(res))).catch((err) => enviar(json(err)))
-				enviar('✅ Bloqueado com sucesso!')
+                enviar('✅ Bloqueado com sucesso!')
                 break
 
             case 'unblock':
                 if (!isCreator) return enviar(mess.dono)
                 let blockww = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
                 await Aurora.updateBlockStatus(blockww, 'unblock').then((res) => enviar(json(res))).catch((err) => enviar(json(err)))
-				enviar('✅ Desbloqueado com sucesso!')
+                enviar('✅ Desbloqueado com sucesso!')
                 break
 
             case 'leave':
@@ -506,7 +509,7 @@ list.push({
                 enviar('✅ Saindo do grupo...')
                 await Aurora.groupLeave(m.chat)
                 break
-            
+
             case 'delete':
             case 'del': {
                 if (!isCreator) return enviar(mess.done)
@@ -527,7 +530,7 @@ list.push({
                     }
                 })
             }
-            break
+                break
 
             case 'kick':
                 if (!m.isGroup) return enviar(mess.group)
@@ -656,48 +659,53 @@ list.push({
                 }
                 break
 
-/*                
-            case 'compraprem':
-            case 'buyprem':
-            case 'premium': {
-                let teks = `Ola ${pushname}👋\nQuer comprar Premium? Basta conversar com o proprietário😉`
-                await Aurora.sendMessage(m.chat, {
-                    text: teks,
-                    contextInfo: {
-                        externalAdReply: {
-                            showAdAttribution: true,
-                            title: `${botname}`,
-                            body: `${ownername}`,
-                            thumbnailUrl: 'https://telegra.ph/file/6ab77544e32477a08e479.jpg',
-                            sourceUrl: global.link,
-                            mediaType: 1,
-                            renderLargerThumbnail: true
+            /*                
+                        case 'compraprem':
+                        case 'buyprem':
+                        case 'premium': {
+                            let teks = `Ola ${pushname}👋\nQuer comprar Premium? Basta conversar com o proprietário😉`
+                            await Aurora.sendMessage(m.chat, {
+                                text: teks,
+                                contextInfo: {
+                                    externalAdReply: {
+                                        showAdAttribution: true,
+                                        title: `${botname}`,
+                                        body: `${ownername}`,
+                                        thumbnailUrl: 'https://telegra.ph/file/6ab77544e32477a08e479.jpg',
+                                        sourceUrl: global.link,
+                                        mediaType: 1,
+                                        renderLargerThumbnail: true
+                                    }
+                                }
+                            }, {
+                                quoted: m
+                            })
                         }
-                    }
-                }, {
-                    quoted: m
+                        break
+            */
+            case 'online':
+            case 'online':
+                let runtimetext = `🧹 A bruxinha Skye BOT está em execução há: ${runtime(process.uptime())}`
+                Aurora.sendMessage(from, { text: runtimetext, mentions: [sender] }, { quoted: m })
+                break
+
+            case 'suporte': {
+                await Aurora.sendMessage(from, { text: `Precisando de ajuda, @${sender.split("@")[0]}?\nFale com meus desenvolvedores.`, mentions: [sender] })
+
+                const repf = await Aurora.sendMessage(from, {
+                    contacts: {
+                        displayName: `${list.length} Contato`,
+                        contacts: list
+                    }, mentions: [sender]
                 })
             }
-            break
-*/
-            case 'execucao':
-            case 'execução':
-                let runtimetext = `▶️ AuroraBOT está em execução há: ${runtime(process.uptime())}`
-                Aurora.sendMessage(from, {text : runtimetext, mentions: [sender]}, { quoted: m})
                 break
-            
-case 'dono': {
-const repf = await Aurora.sendMessage(from, { 
-contacts: { 
-displayName: `${list.length} Contato`, 
-contacts: list }, mentions: [sender] }, { quoted: m })
-Aurora.sendMessage(from, { text : `Olá @${sender.split("@")[0]}, aqui está meu dono:`, mentions: [sender]}, { quoted: repf })
-}
-break
 
             case 'sticker':
+            case 'figurinha':
+            case 'f':
             case 's': {
-                if (!quoted) return enviar(`❗️ Responder ao vídeo/imagem com legenda ${prefix + command}`)
+                if (!quoted) return enviar(`Ei, preciso que responda marcando um vídeo ou imagem.`)
                 if (/image/.test(mime)) {
                     let media = await quoted.download()
                     let encmedia = await Aurora.sendImageAsSticker(m.chat, media, m, {
@@ -706,7 +714,7 @@ break
                     })
                     await fs.unlinkSync(encmedia)
                 } else if (isVideo || /video/.test(mime)) {
-                    if ((quoted.msg || quoted).seconds > 30) return enviar('❌ Máximo 30 segundos!')
+                    if ((quoted.msg || quoted).seconds > 30) return enviar('Psiu! No vídeo de no máximo 30 segundos, hein?')
                     let media = await quoted.download()
                     let encmedia = await Aurora.sendVideoAsSticker(m.chat, media, m, {
                         packname: packname,
@@ -714,10 +722,10 @@ break
                     })
                     await fs.unlinkSync(encmedia)
                 } else {
-                    return enviar(`❗️ Envie imagens/vídeos com legendas ${prefix + command}\n Duração do vídeo de 1 a 30 segundos!`)
+                    return enviar(`Envie imagem ou vídeo para transformar em figurinhas!\nDuração do vídeo de 1 a 30 segundos viu?`)
                 }
             }
-            break
+                break
 
             case 'meme': {
                 let respond = `❗️ Enviar/Responder imagem/adesivo com legenda ${prefix + command} texto1/texto2`
@@ -735,28 +743,28 @@ break
                 })
                 fs.unlinkSync(pop)
             }
-            break
+                break
 
-case 'roubar': {
-if (!args.join(" ")) return enviar(`❗️ Por favor insira o texto!`)
-const swn = args.join(" ")
-const pcknm = swn.split("/")[0]
-const atnm = swn.split("/")[1]
-if (m.quoted.isAnimated === true) {
-Aurora.downloadAndSaveMediaMessage(quoted, "gifee")
-Aurora.sendMessage(from, {sticker:fs.readFileSync("gifee.webp")},{quoted:m})
-} else if (/image/.test(mime)) {
-let media = await quoted.download()
-let encmedia = await Aurora.sendImageAsSticker(m.chat, media, m, { packname: pcknm, author: atnm })
-} else if (/video/.test(mime)) {
-if ((quoted.msg || quoted).seconds > 30) return enviar('❌ Máximo 30 segundos!')
-let media = await quoted.download()
-let encmedia = await Aurora.sendVideoAsSticker(m.chat, media, m, { packname: pcknm, author: atnm })
-} else {
-enviar(`❓ Certifique-se que seja uma foto ou vídeo!`)
-}
-}
-break
+            case 'roubar': {
+                if (!args.join(" ")) return enviar(`❗️ Por favor insira o texto!`)
+                const swn = args.join(" ")
+                const pcknm = swn.split("/")[0]
+                const atnm = swn.split("/")[1]
+                if (m.quoted.isAnimated === true) {
+                    Aurora.downloadAndSaveMediaMessage(quoted, "gifee")
+                    Aurora.sendMessage(from, { sticker: fs.readFileSync("gifee.webp") }, { quoted: m })
+                } else if (/image/.test(mime)) {
+                    let media = await quoted.download()
+                    let encmedia = await Aurora.sendImageAsSticker(m.chat, media, m, { packname: pcknm, author: atnm })
+                } else if (/video/.test(mime)) {
+                    if ((quoted.msg || quoted).seconds > 30) return enviar('❌ Máximo 30 segundos!')
+                    let media = await quoted.download()
+                    let encmedia = await Aurora.sendVideoAsSticker(m.chat, media, m, { packname: pcknm, author: atnm })
+                } else {
+                    enviar(`❓ Certifique-se que seja uma foto ou vídeo!`)
+                }
+            }
+                break
 
             case 'toimage':
             case 'toimg': {
@@ -777,7 +785,7 @@ break
                 })
 
             }
-            break
+                break
 
             case 'tomp4':
             case 'tovideo': {
@@ -796,7 +804,7 @@ break
                 await fs.unlinkSync(media)
 
             }
-            break
+                break
 
             case 'toaudio': {
                 if (!/video/.test(mime) && !/audio/.test(mime)) return enviar(`❗️ Enviar/Responder Vídeo/Áudio que você deseja transformar em áudio com legenda ${prefix + command}`)
@@ -811,7 +819,7 @@ break
                 })
 
             }
-            break
+                break
             case 'tomp3': {
                 if (!/video/.test(mime) && !/audio/.test(mime)) return enviar(`❗️ Enviar/Responder Vídeo/Áudio que você deseja transformar em MP3 com legenda ${prefix + command}`)
                 enviar(mess.wait)
@@ -826,7 +834,7 @@ break
                 })
 
             }
-            break
+                break
 
             case 'tovn':
             case 'toptt': {
@@ -846,7 +854,7 @@ break
                 })
 
             }
-            break
+                break
 
             case 'togif': {
                 if (!/webp/.test(mime)) return enviar(`❗️ Adesivo de resposta com legenda *${prefix + command}*`)
@@ -865,7 +873,7 @@ break
                 await fs.unlinkSync(media)
 
             }
-            break
+                break
 
             case 'tourl': {
                 enviar(mess.wait)
@@ -880,7 +888,7 @@ break
                 await fs.unlinkSync(media)
 
             }
-            break
+                break
 
             case 'emojimix': {
                 let [emoji1, emoji2] = text.split`+`
@@ -897,7 +905,7 @@ break
                     await fs.unlinkSync(encmedia)
                 }
             }
-            break
+                break
 
             case 'toonce':
             case 'visuunica': {
@@ -928,10 +936,10 @@ break
                     })
                 }
             }
-            break
+                break
 
             case 'qr':
-                case 'qrcode': {
+            case 'qrcode': {
                 if (!q) return enviar('❗️ Por favor inclua link ou texto!')
                 const QrCode = require('qrcode-reader')
                 const qrcode = require('qrcode')
@@ -952,293 +960,293 @@ break
                     fs.unlinkSync(buff)
                 }, 10000)
             }
+                break
+
+            /*
+                        case 'adddono':
+                            if (!isCreator) return enviar(mess.dono)
+            if (!args[0]) return enviar(`Use ${prefix+command} numero\nExemplo ${prefix+command} ${ownernumber}`)
+            bnnd = q.split("|")[0].replace(/[^0-9]/g, '')
+            let ceknye = await Aurora.onWhatsApp(bnnd)
+            if (ceknye.length == 0) return enviar(`Insira um número válido e registrado no WhatsApp!!!`)
+            dono.push(bnnd)
+            fs.writeFileSync('./database/dono.json', JSON.stringify(dono))
+            enviar(`O número ${bnnd} tornou-se proprietário!!!`)
             break
-
-/*
-            case 'adddono':
-                if (!isCreator) return enviar(mess.dono)
-if (!args[0]) return enviar(`Use ${prefix+command} numero\nExemplo ${prefix+command} ${ownernumber}`)
-bnnd = q.split("|")[0].replace(/[^0-9]/g, '')
-let ceknye = await Aurora.onWhatsApp(bnnd)
-if (ceknye.length == 0) return enviar(`Insira um número válido e registrado no WhatsApp!!!`)
-dono.push(bnnd)
-fs.writeFileSync('./database/dono.json', JSON.stringify(dono))
-enviar(`O número ${bnnd} tornou-se proprietário!!!`)
-break
-
-case 'deldono':
-                if (!isCreator) return enviar(mess.dono)
-if (!args[0]) return enviar(`Use ${prefix+command} numero\nExemplo ${prefix+command} 5511941212232`)
-ya = q.split("|")[0].replace(/[^0-9]/g, '')
-unp = dono.indexOf(ya)
-dono.splice(unp, 1)
-fs.writeFileSync('./database/dono.json', JSON.stringify(dono))
-enviar(`O número ${ya} foi excluído da lista de proprietários pelo proprietário!!!`)
-break
-
             
-case 'video': // By Flávio
-  if (!q) return enviar(`${prefix + command} link ou nome`);
-
-  const mtq = require('yt-search');
-
-  const ytp_play = await mtq(q);
-  if (!ytp_play || ytp_play.videos.length === 0) {
-    console.log('Nenhum vídeo encontrado para a pesquisa.');
-    return reply('Nenhum vídeo encontrado para a pesquisa.');
-  }
-  
-  const qmq = '720';
-  const qla = qmq + 'p';
-  const vvs = ytp_play.videos[0].url;
-
-  if (!vvs || typeof vvs !== 'string') {
-    console.log('Erro ao obter o vídeo. Valor de v:', vvs);
-    enviar(`Ola *${pushname}* aguarde Um Momento`);
-    return reply('Erro ao obter o vídeo.');
-  }
-
-  const ytp = await youtubedl(vvs).catch(async (_) => await youtubedlv2(vvs));
-  const dlt_url = await ytp.video[qla].download();
-  const tssl = await ytp.title;
-  const sizeas = await ytp.video[qla].fileSizeH;
-
-  await Aurora.sendMessage(m.chat, {
-    video : { url: dlt_url },
-    caption: `╭━❰  Daki  ❱━⬣\n┃📥 YOUTUBE DL 📥\n┃ও *TÍTULO:* \n┃» ${tssl}\n┃﹘﹘﹘﹘﹘﹘﹘﹘﹘﹘﹘﹘\n┃ও *PESO:*\n┃» ${sizeas}\n╰━❰ *Daki* ❱━⬣`,
-    fileName: `${tssl}.mp4`,
-    mimetype: 'video/mp4',
-    contextInfo: {
-      externalAdReply: {
-        title: tssl,
-        body: "",
-        thumbnailUrl: ytp_play.videos[0].thumbnail,
-        mediaType: 2,
-        showAdAttribution: true,
-        renderLargerThumbnail: true,
-      },
-    },
-  }, { quoted: m });
-  break;
-
-case 'play': //by Flavio
-if (!q) return enviar(`${prefix + command} link ou nome`);
-
-  const mstt = require('yt-search');
-
-  const ytai_play = await mstt(q);
-  if (!ytai_play || ytai_play.videos.length === 0) {
-    console.log('Nenhum vídeo encontrado para a pesquisa.');
-    return reply('Nenhum vídeo encontrado para a pesquisa.');
-  }
-let qw = '128kbps'
-
-const vi = ytai_play.videos[0].url;
-  
-  if (!vi || typeof vi !== 'string') {
-    console.log('Erro ao obter o vídeo. Valor de v:', vi);
-    return reply('Erro ao obter o vídeo.');
-  }
-  
-  console.log('Valor de v:', vi);
-  
-  enviar(`Ola *${pushname}* aguarde Um Momento`);
-  
-const ytai = await youtubedl(vi).catch(async _ => await youtubedlv2(vi))
-const dlh_url = await ytai.audio[qw].download()
-const tyl = await ytai.title
-const sizre = await ytai.audio[qw].fileSizeH
-await Aurora.sendMessage(m.chat, { audio: { url: dlh_url }, mimetype: 'audio/mpeg', contextInfo: {
-externalAdReply: {
-title: tyl,
-body: "",
-thumbnail: await fetchBuffer(ytai_play.videos[0].thumbnail),
-mediaType: 1,
-showAdAttribution: true,
-renderLargerThumbnail: true
-}}} , { quoted: m })
-break
-
-case 'mp4doc': // By Flávio
-  if (!q) return enviar(`${prefix + command} link ou nome`);
-
-  const mt = require('yt-search');
-
-  const ytt_play = await mt(q);
-  if (!ytt_play || ytt_play.videos.length === 0) {
-    console.log('Nenhum vídeo encontrado para a pesquisa.');
-    return reply('Nenhum vídeo encontrado para a pesquisa.');
-  }
-  
-  const qu = '720';
-  const qq = qu + 'p';
-  const vs = ytt_play.videos[0].url;
-
-  if (!vs || typeof vs !== 'string') {
-    console.log('Erro ao obter o vídeo. Valor de v:', vs);
-    enviar(`Ola *${pushname}* aguarde Um Momento`);
-    return reply('Erro ao obter o vídeo.');
-  }
-
-  const ytt = await youtubedl(vs).catch(async (_) => await youtubedlv2(vs));
-  const dls_url = await ytt.video[qq].download();
-  const tsl = await ytt.title;
-  const sizes = await ytt.video[qq].fileSizeH;
-
-  await Aurora.sendMessage(m.chat, {
-    document: { url: dls_url },
-    caption: `╭━❰  Daki  ❱━⬣\n┃📥 YOUTUBE DL 📥\n┃ও *TÍTULO:* \n┃» ${tsl}\n┃﹘﹘﹘﹘﹘﹘﹘﹘﹘﹘﹘﹘\n┃ও *PESO:*\n┃» ${sizes}\n╰━❰ *Daki* ❱━⬣`,
-    fileName: `${tsl}.mp4`,
-    mimetype: 'video/mp4',
-    contextInfo: {
-      externalAdReply: {
-        title: tsl,
-        body: "",
-        thumbnailUrl: ytt_play.videos[0].thumbnail,
-        mediaType: 2,
-        showAdAttribution: true,
-        renderLargerThumbnail: true,
-      },
-    },
-  }, { quoted: m });
-  break;
-
-case 'playdoc': //By Flávio
-  if (!q) return enviar(`${prefix + command} link ou nome`);
-  
-  const ytsk = require('yt-search');
-
-  const yt_play = await ytsk(q);
-  if (!yt_play || yt_play.videos.length === 0) {
-    console.log('Nenhum vídeo encontrado para a pesquisa.');
-    return reply('Nenhum vídeo encontrado para a pesquisa.');
-  }
-  
-  const qc = '128kbps';
-  const v = yt_play.videos[0].url;
-  
-  if (!v || typeof v !== 'string') {
-    console.log('Erro ao obter o vídeo. Valor de v:', v);
-    return reply('Erro ao obter o vídeo.');
-  }
-  
-  console.log('Valor de v:', v);
-  
-  enviar(`Ola *${pushname}* aguarde Um Momento`);
-  const yt = await youtubedl(v).catch(async (_) => await youtubedlv2(v));
-  const dl_url = await yt.audio[qc].download();
-  const tl = await yt.title;
-  const size = await yt.audio[qc].fileSizeH;
-  const cap = `╭━❰  *DAKI* ❱━⬣\n┃📥 YOUTUBE DL 📥\n┃ও *📌TÍTULO* \n┃» ${tl}\n┃﹘﹘﹘﹘﹘﹘﹘﹘﹘﹘﹘﹘\n┃ও *⚖️PESO*\n┃» ${size}\n╰━❰ *DAKI* ❱━⬣`.trim();
-  
-  await Aurora.sendMessage(m.chat, {
-    document: { url: dl_url },
-    caption: cap,
-    mimetype: 'audio/mpeg',
-    fileName: `${tl}.mp3`,
-    contextInfo: {
-      externalAdReply: {
-        title: tl,
-        body: "",
-        thumbnailUrl: yt_play.videos[0].thumbnail,
-        mediaType: 1,
-        showAdAttribution: true,
-        renderLargerThumbnail: true,
-      },
-    },
-  }, { quoted: m });
-  break;
-
-
-
-case 'play2': //By Flávio
-case 'song': {
-    if(!q) return enviar(`${prefix+command} link ou nome`);
-    const musica = require('./lib/ytdl3')
-    let yts = require("youtube-yts")
-    enviar(`Ola *${pushname}* aguarde Um Momento`);
-    let pesquisa = await yts(q)
-    let resultado = pesquisa.videos[0]
-    const pedido = await musica.mp3(resultado.url)
-    await Aurora.sendMessage(m.chat, {
-        audio: fs.readFileSync(pedido.path),
-        fileName: resultado.title + '.mp3',
-        mimetype: 'audio/mp4',
-        ptt: false,
-        contextInfo: {
+            case 'deldono':
+                            if (!isCreator) return enviar(mess.dono)
+            if (!args[0]) return enviar(`Use ${prefix+command} numero\nExemplo ${prefix+command} 5511941212232`)
+            ya = q.split("|")[0].replace(/[^0-9]/g, '')
+            unp = dono.indexOf(ya)
+            dono.splice(unp, 1)
+            fs.writeFileSync('./database/dono.json', JSON.stringify(dono))
+            enviar(`O número ${ya} foi excluído da lista de proprietários pelo proprietário!!!`)
+            break
+            
+                        
+            case 'video': // By Flávio
+              if (!q) return enviar(`${prefix + command} link ou nome`);
+            
+              const mtq = require('yt-search');
+            
+              const ytp_play = await mtq(q);
+              if (!ytp_play || ytp_play.videos.length === 0) {
+                console.log('Nenhum vídeo encontrado para a pesquisa.');
+                return reply('Nenhum vídeo encontrado para a pesquisa.');
+              }
+              
+              const qmq = '720';
+              const qla = qmq + 'p';
+              const vvs = ytp_play.videos[0].url;
+            
+              if (!vvs || typeof vvs !== 'string') {
+                console.log('Erro ao obter o vídeo. Valor de v:', vvs);
+                enviar(`Ola *${pushname}* aguarde Um Momento`);
+                return reply('Erro ao obter o vídeo.');
+              }
+            
+              const ytp = await youtubedl(vvs).catch(async (_) => await youtubedlv2(vvs));
+              const dlt_url = await ytp.video[qla].download();
+              const tssl = await ytp.title;
+              const sizeas = await ytp.video[qla].fileSizeH;
+            
+              await Aurora.sendMessage(m.chat, {
+                video : { url: dlt_url },
+                caption: `╭━❰  Daki  ❱━⬣\n┃📥 YOUTUBE DL 📥\n┃ও *TÍTULO:* \n┃» ${tssl}\n┃﹘﹘﹘﹘﹘﹘﹘﹘﹘﹘﹘﹘\n┃ও *PESO:*\n┃» ${sizeas}\n╰━❰ *Daki* ❱━⬣`,
+                fileName: `${tssl}.mp4`,
+                mimetype: 'video/mp4',
+                contextInfo: {
+                  externalAdReply: {
+                    title: tssl,
+                    body: "",
+                    thumbnailUrl: ytp_play.videos[0].thumbnail,
+                    mediaType: 2,
+                    showAdAttribution: true,
+                    renderLargerThumbnail: true,
+                  },
+                },
+              }, { quoted: m });
+              break;
+            
+            case 'play': //by Flavio
+            if (!q) return enviar(`${prefix + command} link ou nome`);
+            
+              const mstt = require('yt-search');
+            
+              const ytai_play = await mstt(q);
+              if (!ytai_play || ytai_play.videos.length === 0) {
+                console.log('Nenhum vídeo encontrado para a pesquisa.');
+                return reply('Nenhum vídeo encontrado para a pesquisa.');
+              }
+            let qw = '128kbps'
+            
+            const vi = ytai_play.videos[0].url;
+              
+              if (!vi || typeof vi !== 'string') {
+                console.log('Erro ao obter o vídeo. Valor de v:', vi);
+                return reply('Erro ao obter o vídeo.');
+              }
+              
+              console.log('Valor de v:', vi);
+              
+              enviar(`Ola *${pushname}* aguarde Um Momento`);
+              
+            const ytai = await youtubedl(vi).catch(async _ => await youtubedlv2(vi))
+            const dlh_url = await ytai.audio[qw].download()
+            const tyl = await ytai.title
+            const sizre = await ytai.audio[qw].fileSizeH
+            await Aurora.sendMessage(m.chat, { audio: { url: dlh_url }, mimetype: 'audio/mpeg', contextInfo: {
             externalAdReply: {
-                title: `Pedido Por: ${pushname}`,
-                body: `0:00 ━━━●──── ${resultado.timestamp}`,
-                thumbnail: await fetchBuffer(pedido.meta.image),
-                mediaType: 1,
-                mediaUrl: resultado.url,
+            title: tyl,
+            body: "",
+            thumbnail: await fetchBuffer(ytai_play.videos[0].thumbnail),
+            mediaType: 1,
+            showAdAttribution: true,
+            renderLargerThumbnail: true
+            }}} , { quoted: m })
+            break
+            
+            case 'mp4doc': // By Flávio
+              if (!q) return enviar(`${prefix + command} link ou nome`);
+            
+              const mt = require('yt-search');
+            
+              const ytt_play = await mt(q);
+              if (!ytt_play || ytt_play.videos.length === 0) {
+                console.log('Nenhum vídeo encontrado para a pesquisa.');
+                return reply('Nenhum vídeo encontrado para a pesquisa.');
+              }
+              
+              const qu = '720';
+              const qq = qu + 'p';
+              const vs = ytt_play.videos[0].url;
+            
+              if (!vs || typeof vs !== 'string') {
+                console.log('Erro ao obter o vídeo. Valor de v:', vs);
+                enviar(`Ola *${pushname}* aguarde Um Momento`);
+                return reply('Erro ao obter o vídeo.');
+              }
+            
+              const ytt = await youtubedl(vs).catch(async (_) => await youtubedlv2(vs));
+              const dls_url = await ytt.video[qq].download();
+              const tsl = await ytt.title;
+              const sizes = await ytt.video[qq].fileSizeH;
+            
+              await Aurora.sendMessage(m.chat, {
+                document: { url: dls_url },
+                caption: `╭━❰  Daki  ❱━⬣\n┃📥 YOUTUBE DL 📥\n┃ও *TÍTULO:* \n┃» ${tsl}\n┃﹘﹘﹘﹘﹘﹘﹘﹘﹘﹘﹘﹘\n┃ও *PESO:*\n┃» ${sizes}\n╰━❰ *Daki* ❱━⬣`,
+                fileName: `${tsl}.mp4`,
+                mimetype: 'video/mp4',
+                contextInfo: {
+                  externalAdReply: {
+                    title: tsl,
+                    body: "",
+                    thumbnailUrl: ytt_play.videos[0].thumbnail,
+                    mediaType: 2,
+                    showAdAttribution: true,
+                    renderLargerThumbnail: true,
+                  },
+                },
+              }, { quoted: m });
+              break;
+            
+            case 'playdoc': //By Flávio
+              if (!q) return enviar(`${prefix + command} link ou nome`);
+              
+              const ytsk = require('yt-search');
+            
+              const yt_play = await ytsk(q);
+              if (!yt_play || yt_play.videos.length === 0) {
+                console.log('Nenhum vídeo encontrado para a pesquisa.');
+                return reply('Nenhum vídeo encontrado para a pesquisa.');
+              }
+              
+              const qc = '128kbps';
+              const v = yt_play.videos[0].url;
+              
+              if (!v || typeof v !== 'string') {
+                console.log('Erro ao obter o vídeo. Valor de v:', v);
+                return reply('Erro ao obter o vídeo.');
+              }
+              
+              console.log('Valor de v:', v);
+              
+              enviar(`Ola *${pushname}* aguarde Um Momento`);
+              const yt = await youtubedl(v).catch(async (_) => await youtubedlv2(v));
+              const dl_url = await yt.audio[qc].download();
+              const tl = await yt.title;
+              const size = await yt.audio[qc].fileSizeH;
+              const cap = `╭━❰  *DAKI* ❱━⬣\n┃📥 YOUTUBE DL 📥\n┃ও *📌TÍTULO* \n┃» ${tl}\n┃﹘﹘﹘﹘﹘﹘﹘﹘﹘﹘﹘﹘\n┃ও *⚖️PESO*\n┃» ${size}\n╰━❰ *DAKI* ❱━⬣`.trim();
+              
+              await Aurora.sendMessage(m.chat, {
+                document: { url: dl_url },
+                caption: cap,
+                mimetype: 'audio/mpeg',
+                fileName: `${tl}.mp3`,
+                contextInfo: {
+                  externalAdReply: {
+                    title: tl,
+                    body: "",
+                    thumbnailUrl: yt_play.videos[0].thumbnail,
+                    mediaType: 1,
+                    showAdAttribution: true,
+                    renderLargerThumbnail: true,
+                  },
+                },
+              }, { quoted: m });
+              break;
+            
+            
+            
+            case 'play2': //By Flávio
+            case 'song': {
+                if(!q) return enviar(`${prefix+command} link ou nome`);
+                const musica = require('./lib/ytdl3')
+                let yts = require("youtube-yts")
+                enviar(`Ola *${pushname}* aguarde Um Momento`);
+                let pesquisa = await yts(q)
+                let resultado = pesquisa.videos[0]
+                const pedido = await musica.mp3(resultado.url)
+                await Aurora.sendMessage(m.chat, {
+                    audio: fs.readFileSync(pedido.path),
+                    fileName: resultado.title + '.mp3',
+                    mimetype: 'audio/mp4',
+                    ptt: false,
+                    contextInfo: {
+                        externalAdReply: {
+                            title: `Pedido Por: ${pushname}`,
+                            body: `0:00 ━━━●──── ${resultado.timestamp}`,
+                            thumbnail: await fetchBuffer(pedido.meta.image),
+                            mediaType: 1,
+                            mediaUrl: resultado.url,
+                        }
+                    },
+                }, { quoted: selo })
+                await fs.unlinkSync(pedido.path)
             }
-        },
-    }, { quoted: selo })
-    await fs.unlinkSync(pedido.path)
-}
-break;
+            break;
+            
+            case 'mp4': //By Flávio
+            case 'ytvideo':
+            {
+                if (!q) return enviar(`${prefix + command} Digite o termo de pesquisa`);
+                const yts = require('youtube-yts');
+                const video = require('./lib/ytdl2');
+                enviar(`Ola *${pushname}* aguarde Um Momento`);
+                async function pesquisarVideoNoYoutube(query) {
+                    try {
+                        const result = await yts(query);
+                        return result.videos;
+                    } catch (error) {
+                        console.error('Erro ao pesquisar vídeos no YouTube:', error);
+                        return [];
+                    }
+                }
+                const resultadosPesquisa = await pesquisarVideoNoYoutube(q);
+                if (resultadosPesquisa.length === 0) {
+                    return reply("Nenhum vídeo encontrado para a consulta de pesquisa.");
+                }
+                const primeiroResultado = resultadosPesquisa[0];
+                const pesquisa = await video.mp4(primeiroResultado.url);
+                const resultados = `
+            *📌 Título:* ${pesquisa.title}
+            *📆 Data:* ${pesquisa.date}
+            *⏳ Duração:* ${pesquisa.duration}
+            *🎞️ Qualidade:* ${pesquisa.quality}`;
+                await Aurora.sendMessage(m.chat, {
+                    video: {
+                        url: pesquisa.videoUrl,
+                        mimetype: 'video/mp4',
+                    },
+                    caption: resultados
+                }, { quoted: m });
+            }
+            break;
+            
+            
+            
+            
+            
+            case 'ytmp4': case 'ytvideo': { //By Flávio
+            const video = require('./lib/ytdl2')
+            if(!q) return enviar(`${prefix+command} link Do Video`);
+                enviar(`Ola *${pushname}* aguarde Um Momento`);
+            const pesquisa = await video.mp4(q)
+            const resultados = `
+            *📌Titulo:* ${pesquisa.title}
+            *📆Data:* ${pesquisa.date}
+            *⏳Duração:* ${pesquisa.duration}
+            *🎞️Qualidade:* ${pesquisa.quality}`
+            await Aurora.sendMessage(m.chat, {
+                video: { url: pesquisa.videoUrl },
+                caption: resultados
+            },{ quoted: m })
+            }
+            break
+            */
 
-case 'mp4': //By Flávio
-case 'ytvideo':
-{
-    if (!q) return enviar(`${prefix + command} Digite o termo de pesquisa`);
-    const yts = require('youtube-yts');
-    const video = require('./lib/ytdl2');
-    enviar(`Ola *${pushname}* aguarde Um Momento`);
-    async function pesquisarVideoNoYoutube(query) {
-        try {
-            const result = await yts(query);
-            return result.videos;
-        } catch (error) {
-            console.error('Erro ao pesquisar vídeos no YouTube:', error);
-            return [];
-        }
-    }
-    const resultadosPesquisa = await pesquisarVideoNoYoutube(q);
-    if (resultadosPesquisa.length === 0) {
-        return reply("Nenhum vídeo encontrado para a consulta de pesquisa.");
-    }
-    const primeiroResultado = resultadosPesquisa[0];
-    const pesquisa = await video.mp4(primeiroResultado.url);
-    const resultados = `
-*📌 Título:* ${pesquisa.title}
-*📆 Data:* ${pesquisa.date}
-*⏳ Duração:* ${pesquisa.duration}
-*🎞️ Qualidade:* ${pesquisa.quality}`;
-    await Aurora.sendMessage(m.chat, {
-        video: {
-            url: pesquisa.videoUrl,
-            mimetype: 'video/mp4',
-        },
-        caption: resultados
-    }, { quoted: m });
-}
-break;
-
-
-
-
-
-case 'ytmp4': case 'ytvideo': { //By Flávio
-const video = require('./lib/ytdl2')
-if(!q) return enviar(`${prefix+command} link Do Video`);
-    enviar(`Ola *${pushname}* aguarde Um Momento`);
-const pesquisa = await video.mp4(q)
-const resultados = `
-*📌Titulo:* ${pesquisa.title}
-*📆Data:* ${pesquisa.date}
-*⏳Duração:* ${pesquisa.duration}
-*🎞️Qualidade:* ${pesquisa.quality}`
-await Aurora.sendMessage(m.chat, {
-    video: { url: pesquisa.videoUrl },
-    caption: resultados
-},{ quoted: m })
-}
-break
-*/
-
-      case 'qc': {
+            case 'qc': {
                 const {
                     quote
                 } = require('./lib/quote.js')
@@ -1252,238 +1260,242 @@ break
                     author: `Sticker feito por: ${pushname}`
                 })
             }
+                break
+
+            case 'twitter': {
+                if (!q) return enviar(`❗️ Exemplo: ${prefix + command} link do vídeo`)
+                enviar(mess.wait)
+                async function gtwitter(link) {
+                    try {
+                        return new Promise(async (resolve, reject) => {
+                            axios.post(`https://davapps.com/wp-json/aio-dl/video-data/`, {
+                                url: link
+                            }).then((res) => {
+                                let array = []
+                                if (res.status === 200) { igdl = res.data }
+                                for (let a of igdl.medias) array.push({
+                                    link: a.url,
+                                    qualidade: a.quality,
+                                    peso_formatado: a.formattedSize,
+                                    peso: a.size,
+                                    extensao: a.extension
+                                })
+                                let resultado = {
+                                    Status: res.status === 200 ? true : false,
+                                    Dev: "Switzg / gugu 😏",
+                                    Titulo: igdl.title,
+                                    Thumb: igdl.thumbnail,
+                                    Duracao: igdl.duration,
+                                    Midias: array
+                                };
+                                resolve(resultado)
+                            }).catch(reject)
+                        })
+                    } catch (erro) {
+                        return erro
+                    }
+                }
+
+                res = await gtwitter(q)
+                await sleep(500)
+                await Aurora.sendMessage(from, { video: { url: res.Midias[2] ? res.Midias[2].link : res.Midias[1].link }, caption: `✅ Video baixado com sucesso!` }, { quoted: m })
+            }
+                break
+
+
+            case 'mensagem':
+                if (!isCreator) return enviar(mess.dono)
+                if (!text) return enviar(`❌ Cade o número e o texto?\nExemplo: ${prefix + command} numero/texto`)
+                enviar(mess.wait)
+                numero = text.split('/')[0] ? text.split('/')[0] : '-'
+                texto = text.split('/')[1] ? text.split('/')[1] : '-'
+                if (numero.includes("-")) return reply('❌ Precisa ser número junto sem "-"')
+                if (numero.includes("+")) return reply('❌ Precisa ser número junto sem "+", e não pode tá separado da /!')
+                Aurora.sendMessage(`${numero}@s.whatsapp.net`, { text: texto })
+                enviar(`✅ Mensagem enviada com sucesso!`)
+                break
+
+            case "pix":
+                if (args.length == 0) return enviar(`❌ Por gentileza digite o valor!`)
+                var pagament = new payment("APP_USR-9003413286845800-120115-c75f7b28d3d7cd3705de9516f8965231-311715545");
+                console.log("🛑  Processando pagamento..."); //+pagament
+                try {
+                    let inf = await pagament.create_payment(args.join(" "))
+                    console.log("🛑  Pagamento criado!") //+inf
+                    await Aurora.sendMessage(from, { image: Buffer.from(inf.qr_code, "base64"), caption: `✅ QR-Code gerado com sucesso!` })
+                    await Aurora.sendMessage(from, { text: '👇🏼 Aqui está o código copia e cola!' })
+                    await Aurora.sendMessage(from, { text: inf.copy_paste })
+
+                    let check = await pagament.check_payment();
+
+                    while (check.status == 'pending') { check = await pagament.check_payment() }
+                    if (check.status == "approved") { return console.log("✅  Pagamento aprovado!") + enviar("✅ Pagamento aprovado!") + Aurora.sendMessage(`5511941212232@s.whatsapp.net`, { text: "✅ Novo pagamento aprovado, por gentileza cheque o Mercado pago!" }) }
+                    return enviar("❌ Pagamento expirado.")
+                } catch (e) {
+                    console.log(e)
+                    return enviar(`❌ Valor inválido.`)
+                }
+                break
+
+            case 'tiktokaudio': {
+                if (!q) return enviar(`❗️ Exemplo: ${prefix + command} link do vídeo cade?`)
+                if (!q.includes('tiktok')) return enviar(`❌ O Link está inválido`)
+                enviar(mess.wait)
+                require('./lib/tiktok').Tiktok(q).then(data => {
+                    Aurora.sendMessage(from, { audio: { url: data.audio }, mimetype: 'audio/mp4' }, { quoted: m })
+                })
+            }
+                break
+
+            case 'tiktok': {
+                if (!q) return enviar(`❗️ Exemplo: ${prefix + command} link do vídeo`)
+                if (!q.includes('tiktok')) return enviar(`❌ O link esta inválido`)
+                enviar(mess.wait)
+                require('./lib/tiktok').Tiktok(q).then(data => {
+                    Aurora.sendMessage(from, { caption: `✅ Vídeo baixado com sucesso!`, video: { url: data.watermark } })
+                })
+            }
+                break
+
+            case 'insta':
+            case 'instagram':
+            case 'ig': {
+                if (!q) return enviar(`❗️ Exemplo: ${prefix + command} link do vídeo/stories/postagem`)
+                enviar(mess.wait)
+                async function ginsta(link) {
+                    try {
+                        return new Promise(async (resolve, reject) => {
+                            axios.post(`https://reels.com.br/api/post`, {
+                                urlToScrap: link
+                            }).then((res) => {
+                                let array = []
+                                if (res.status === 200) { igdl = res.data }
+                                for (let a of igdl) array.push({
+                                    link: a.downloadUrl
+                                })
+                                let resultado = {
+                                    Status: res.status === 200 ? true : false,
+                                    Dev: "Switzg / gugu 😏",
+                                    Thumb: igdl[0].displayUrl,
+                                    Midias: array
+                                };
+                                resolve(resultado)
+                            }).catch(reject)
+                        })
+                    } catch (erro) {
+                        return erro
+                    }
+                };
+
+                async function ginsta2(link) {
+                    try {
+                        return new Promise(async (resolve, reject) => {
+                            axios.post(`https://fastdl.app/c/`, qs.stringify({
+                                url: link,
+                                lang_code: "en"
+                            })).then((res) => {
+                                const $ = cheerio.load(res.data)
+                                let array = []
+                                $('div:nth-child(1)').each(function (a, b, c, d) {
+                                    link = $(b).find('a').attr('href')
+                                    extensao = $(b).find('a').attr('data-mediatype')
+                                    if (link != undefined && extensao != undefined) {
+                                        array.push({ link: link, extensao })
+                                    }
+                                })
+                                resultado = {
+                                    Status: res.status === 200 ? true : false,
+                                    Dev: "Switzg / gugu 😏",
+                                    Midias: array
+                                }
+                                resolve(resultado)
+                            }).catch(reject)
+                        })
+                    } catch (erro) {
+                        return erro
+                    }
+                }
+
+                try {
+                    const openig = await ginsta(q)
+                    for (let a of openig.Midias) {
+                        if (a.link.includes(".heic") || a.link.includes(".webp") || a.link.includes(".png") || a.link.includes(".jpeg") || a.link.includes(".jpg")) {
+                            await sleep(500)
+                            await Aurora.sendMessage(from, { image: { url: a.link }, mimetype: "image/png", caption: `✅ Baixado com sucesso!` }, { quoted: m }).catch(e => {
+                                enviar("❌ Erro!")
+                            })
+                        } else {
+                            await sleep(500)
+                            await Aurora.sendMessage(from, { video: { url: a.link }, caption: `✅ Baixado com sucesso!` }, { quoted: m }).catch(e => {
+                                enviar("❌ Erro!")
+                            })
+                        }
+                    }
+                } catch {
+                    try {
+                        const openig = await ginsta2(q)
+                        for (a = 1; a < openig.Midias.length; a++) {
+                            if (openig.Midias[a].link.includes(".heic") || openig.Midias[a].link.includes(".webp") || openig.Midias[a].link.includes(".png") || openig.Midias[a].link.includes(".jpeg") || openig.Midias[a].link.includes(".jpg")) {
+                                await sleep(500)
+                                await Aurora.sendMessage(from, { image: { url: openig.Midias[a].link }, mimetype: "image/png", caption: `✅ Baixado com sucesso!` }, { quoted: m })
+                                    .catch(e => { enviar("❌ Erro!") })
+                            } else {
+                                await sleep(500)
+                                await Aurora.sendMessage(from, { video: { url: openig.Midias[a].link }, mimetype: "video/mp4", caption: `✅ Baixado com sucesso!` }, { quoted: m })
+                                    .catch(e => { enviar("❌ Erro!") })
+                            }
+                        }
+                    } catch (e) {
+                        console.log(e)
+                    }
+                }
+            }
+                break
+
+
+
+            /*
+            case "ytmp3.1": case "ytaudio":
+            const xeonaudp3 = require('./lib/ytdl3')
+            if (args.length < 1 || !isUrl(text) || !xeonaudp3.isYTUrl(text)) return enviar(`Cadê o link do YouTube?\nExemplo: ${prefix + command} link`)
+            enviar(`Ola *${pushname}* aguarde Um Momento`);
+            const audio=await xeonaudp3.mp3(text)
+            await Aurora.sendMessage(m.chat,{
+                audio: fs.readFileSync(audio.path),
+                mimetype: 'audio/mp4', ptt: false,
+                contextInfo:{
+                    externalAdReply:{
+                        title:audio.meta.title,
+                        body: botname,
+                        thumbnail: await fetchBuffer(audio.meta.image),
+                        mediaType: false,
+                        mediaUrl: text,
+                    }
+            
+                },
+            },{quoted: m })
+            await fs.unlinkSync(audio.path)
             break
+            case 'ytmp4.1': case 'ytvideo': {
+            const xeonvidoh = require('./lib/ytdl3')
+            if (args.length < 1 || !isUrl(text) || !xeonvidoh.isYTUrl(text)) enviar(`Onde está o link??\n\nExemplo: ${prefix + command} link 128kbps`)
+            enviar(`Ola *${pushname}* aguarde Um Momento`);
+            const vid=await xeonvidoh.mp4(text)
+            const ytc=`
+            *Titulo:* ${vid.title}
+            *Data:* ${vid.date}
+            *Duração:* ${vid.duration}
+            *Qualidade:* ${vid.quality}`
+            await Aurora.sendMessage(m.chat,{
+                video: {url:vid.videoUrl},
+                caption: ytc
+            },{quoted: m })
+            }
+            break
+            */
 
-case 'twitter': {
-if (!q) return enviar(`❗️ Exemplo: ${prefix + command} link do vídeo`)
-enviar(mess.wait)
-    async function gtwitter(link) {
-      try {
-        return new Promise(async (resolve, reject) => {
-        axios.post(`https://davapps.com/wp-json/aio-dl/video-data/`, {
-          url: link
-        }).then((res) => {
-        let array = []
-        if (res.status === 200) { igdl = res.data }
-        for (let a of igdl.medias) array.push({
-          link: a.url,
-          qualidade: a.quality,
-          peso_formatado: a.formattedSize,
-          peso: a.size,
-          extensao: a.extension
-        })
-        let resultado = {
-          Status: res.status === 200 ? true : false,
-          Dev: "Switzg / gugu 😏",
-          Titulo: igdl.title,
-          Thumb: igdl.thumbnail,
-          Duracao: igdl.duration,
-          Midias: array
-        };
-        resolve(resultado)
-        }).catch(reject)
-        })
-      } catch (erro) {
-        return erro
-      }
-    }
-    
-    res = await gtwitter(q)
-    await sleep(500)
-    await Aurora.sendMessage(from, {video: {url: res.Midias[2] ? res.Midias[2].link : res.Midias[1].link}, caption: `✅ Video baixado com sucesso!`}, {quoted: m})
-    }
-    break
-
-
-case 'mensagem':
-if (!isCreator) return enviar(mess.dono)
-if (!text) return enviar(`❌ Cade o número e o texto?\nExemplo: ${prefix + command} numero/texto`)
-enviar(mess.wait)
-numero = text.split('/')[0] ? text.split('/')[0] : '-'
-texto = text.split('/')[1] ? text.split('/')[1] : '-'
-if(numero.includes("-")) return reply('❌ Precisa ser número junto sem "-"')
-if(numero.includes("+")) return reply('❌ Precisa ser número junto sem "+", e não pode tá separado da /!')
-Aurora.sendMessage(`${numero}@s.whatsapp.net`, {text: texto})
-enviar(`✅ Mensagem enviada com sucesso!`)
-break
-
-case "pix":
-  if (args.length == 0) return enviar(`❌ Por gentileza digite o valor!`)
-  var pagament = new payment("APP_USR-9003413286845800-120115-c75f7b28d3d7cd3705de9516f8965231-311715545");
-console.log("🛑  Processando pagamento..."); //+pagament
-  try {
-    let inf = await pagament.create_payment(args.join(" "))
-console.log("🛑  Pagamento criado!") //+inf
-await Aurora.sendMessage(from, {image: Buffer.from(inf.qr_code, "base64"), caption: `✅ QR-Code gerado com sucesso!`})
-await Aurora.sendMessage(from, {text: '👇🏼 Aqui está o código copia e cola!'})
-await Aurora.sendMessage(from, {text: inf.copy_paste})
-    
-    let check = await pagament.check_payment();
-
-    while (check.status == 'pending') { check = await pagament.check_payment() }
-    if (check.status == "approved") { return console.log("✅  Pagamento aprovado!") + enviar("✅ Pagamento aprovado!") + Aurora.sendMessage(`5511941212232@s.whatsapp.net`, {text: "✅ Novo pagamento aprovado, por gentileza cheque o Mercado pago!"})}
-    return enviar("❌ Pagamento expirado.")
-  } catch(e) { 
-console.log(e)
-return enviar(`❌ Valor inválido.`) }
-  break
-
-case 'tiktokaudio':{
-    if (!q) return enviar(`❗️ Exemplo: ${prefix + command} link do vídeo cade?`)
-    if (!q.includes('tiktok')) return enviar(`❌ O Link está inválido`)
-    enviar(mess.wait)
-    require('./lib/tiktok').Tiktok(q).then( data => {
-    Aurora.sendMessage(from, { audio: { url: data.audio }, mimetype: 'audio/mp4' }, { quoted: m })
-    })
-    }
-    break
-    
-    case 'tiktok':{ 
-    if (!q) return enviar(`❗️ Exemplo: ${prefix + command} link do vídeo`)
-    if (!q.includes('tiktok')) return enviar(`❌ O link esta inválido`)
-    enviar(mess.wait)
-    require('./lib/tiktok').Tiktok(q).then( data => {
-    Aurora.sendMessage(from, { caption: `✅ Vídeo baixado com sucesso!`, video: { url: data.watermark }})
-    })
-    }
-    break
-
-  case 'insta':
-  case 'instagram':
-  case 'ig': {
-    if (!q) return enviar(`❗️ Exemplo: ${prefix + command} link do vídeo/stories/postagem`)
-    enviar(mess.wait)
-    async function ginsta(link) {
-      try {
-        return new Promise(async (resolve, reject) => {
-        axios.post(`https://reels.com.br/api/post`, {
-          urlToScrap: link
-        }).then((res) => {
-        let array = []
-        if (res.status === 200) { igdl = res.data }
-        for (let a of igdl) array.push({
-          link: a.downloadUrl
-        })
-        let resultado = {
-          Status: res.status === 200 ? true : false,
-          Dev: "Switzg / gugu 😏",
-          Thumb: igdl[0].displayUrl,
-          Midias: array
-        }; 
-        resolve(resultado)
-        }).catch(reject)
-        })
-      } catch (erro) {
-        return erro
-      }
-    };
-    
-    async function ginsta2(link) {
-      try {
-        return new Promise(async (resolve, reject) => {
-        axios.post(`https://fastdl.app/c/`, qs.stringify({
-          url: link,
-          lang_code: "en"
-        })).then((res) => {
-        const $ = cheerio.load(res.data)
-        let array = []
-        $('div:nth-child(1)').each(function(a, b, c, d) {
-        link = $(b).find('a').attr('href')
-        extensao = $(b).find('a').attr('data-mediatype')
-        if (link != undefined && extensao != undefined) {
-        array.push({link: link, extensao})
-        }
-        })
-        resultado = {
-        Status: res.status === 200 ? true : false,
-        Dev: "Switzg / gugu 😏",
-        Midias: array
-        }
-        resolve(resultado)
-        }).catch(reject)
-        })
-      } catch (erro) {
-        return erro
-      }
-    }
-    
-    try {
-    const openig = await ginsta(q)
-    for (let a of openig.Midias) {
-    if (a.link.includes(".heic") || a.link.includes(".webp") || a.link.includes(".png") || a.link.includes(".jpeg") || a.link.includes(".jpg")) {
-    await sleep(500)
-    await Aurora.sendMessage(from, {image: {url: a.link}, mimetype: "image/png", caption: `✅ Baixado com sucesso!`}, {quoted: m}).catch(e => {
-    enviar("❌ Erro!")
-    })
-    } else {
-    await sleep(500)
-    await Aurora.sendMessage(from, {video: {url: a.link}, caption: `✅ Baixado com sucesso!`}, {quoted: m}).catch(e => {
-    enviar("❌ Erro!")
-    })
-    }}
-    } catch {
-    try {
-    const openig = await ginsta2(q)
-    for (a=1; a<openig.Midias.length; a++) {
-    if (openig.Midias[a].link.includes(".heic") || openig.Midias[a].link.includes(".webp") || openig.Midias[a].link.includes(".png") || openig.Midias[a].link.includes(".jpeg") || openig.Midias[a].link.includes(".jpg")) {
-    await sleep(500)
-    await Aurora.sendMessage(from, {image: {url: openig.Midias[a].link}, mimetype: "image/png", caption: `✅ Baixado com sucesso!`}, {quoted: m})
-    .catch(e => { enviar("❌ Erro!") })
-    } else {
-    await sleep(500)
-    await Aurora.sendMessage(from, {video: {url: openig.Midias[a].link}, mimetype: "video/mp4", caption: `✅ Baixado com sucesso!`}, {quoted: m})
-    .catch(e => { enviar("❌ Erro!") })
-    }}
-    } catch (e) {
-    console.log(e)
-    }}
-    }
-    break
-
-
-    
-/*
-case "ytmp3.1": case "ytaudio":
-const xeonaudp3 = require('./lib/ytdl3')
-if (args.length < 1 || !isUrl(text) || !xeonaudp3.isYTUrl(text)) return enviar(`Cadê o link do YouTube?\nExemplo: ${prefix + command} link`)
-enviar(`Ola *${pushname}* aguarde Um Momento`);
-const audio=await xeonaudp3.mp3(text)
-await Aurora.sendMessage(m.chat,{
-    audio: fs.readFileSync(audio.path),
-    mimetype: 'audio/mp4', ptt: false,
-    contextInfo:{
-        externalAdReply:{
-            title:audio.meta.title,
-            body: botname,
-            thumbnail: await fetchBuffer(audio.meta.image),
-            mediaType: false,
-            mediaUrl: text,
-        }
-
-    },
-},{quoted: m })
-await fs.unlinkSync(audio.path)
-break
-case 'ytmp4.1': case 'ytvideo': {
-const xeonvidoh = require('./lib/ytdl3')
-if (args.length < 1 || !isUrl(text) || !xeonvidoh.isYTUrl(text)) enviar(`Onde está o link??\n\nExemplo: ${prefix + command} link 128kbps`)
-enviar(`Ola *${pushname}* aguarde Um Momento`);
-const vid=await xeonvidoh.mp4(text)
-const ytc=`
-*Titulo:* ${vid.title}
-*Data:* ${vid.date}
-*Duração:* ${vid.duration}
-*Qualidade:* ${vid.quality}`
-await Aurora.sendMessage(m.chat,{
-    video: {url:vid.videoUrl},
-    caption: ytc
-},{quoted: m })
-}
-break
-*/
-
-case 'menudono':              
-let dakimenu2 = `👋 Olá, como vai ${pushname}?
+            case 'menudono':
+                let dakimenu2 = `👋 Olá, como vai ${pushname}?
 Sou a Aurora, um BOT desenvolvido para auxiliar o seu uso no WhatsApp
 *Segue abaixo meus comandos para dono!* 🙋‍♂️
 
@@ -1502,7 +1514,7 @@ Sou a Aurora, um BOT desenvolvido para auxiliar o seu uso no WhatsApp
 ✦ entrargp
 ✦ sairgp
 `
-if (typemenu === 'v1') {
+                if (typemenu === 'v1') {
                     Aurora.sendMessage(m.chat, {
                         image: fs.readFileSync('./Medias/thumb.jpg'),
                         caption: dakimenu2
@@ -1537,24 +1549,24 @@ if (typemenu === 'v1') {
                 } else if (typemenu === 'v4') {
                     Aurora.relayMessage(m.chat, {
                         scheduledCallCreationMessage: {
-                           callType: "AUDIO",
-                           scheduledTimestampMs: 1200,
-                           title: dakimenu2
+                            callType: "AUDIO",
+                            scheduledTimestampMs: 1200,
+                            title: dakimenu2
                         }
                     }, {})
                 }
                 break
 
-case 'menu':            
-let menus = `👋 Olá, como vai ${pushname}?
-Sou a Aurora, um BOT desenvolvido para auxiliar o seu uso no WhatsApp
-*Segue abaixo meus comandos!* 🙋‍♂️
+            case 'menu':
+                let menus = `\n*Oi ${pushname}!* Bom te ver por aqui.\n
+🔮 Você pode me chamar de Skye, sou uma BOT desenvolvida para facilitar seu uso no WhatsApp.
+
+*Segue abaixo meus comandos!* 
 
 📡 Comandos principais!
-✦ menu
-✦ menudono
-✦ dono
-✦ execução
+• menu
+• suporte
+• online
 
 👨‍💻 Comandos para conversões!
 ✦ sticker 
@@ -1594,9 +1606,9 @@ Sou a Aurora, um BOT desenvolvido para auxiliar o seu uso no WhatsApp
 ✦ linkgp
 ✦ revoke
 `
-if (typemenu === 'v1') {
+                if (typemenu === 'v1') {
                     Aurora.sendMessage(m.chat, {
-                        image: fs.readFileSync('./Medias/thumb.jpg'),
+                        image: fs.readFileSync('./Medias/menuinicio.png'),
                         caption: menus
                     }, {
                         quoted: m
@@ -1629,9 +1641,9 @@ if (typemenu === 'v1') {
                 } else if (typemenu === 'v4') {
                     Aurora.relayMessage(m.chat, {
                         scheduledCallCreationMessage: {
-                           callType: "AUDIO",
-                           scheduledTimestampMs: 1200,
-                           title: menus
+                            callType: "AUDIO",
+                            scheduledTimestampMs: 1200,
+                            title: menus
                         }
                     }, {})
                 }
@@ -1688,12 +1700,12 @@ fs.watchFile(file, () => {
 })
 
 process.on('uncaughtException', function (err) {
-let e = String(err)
-if (e.includes("Socket connection timeout")) return
-if (e.includes("item-not-found")) return
-if (e.includes("rate-overlimit")) return
-if (e.includes("Connection Closed")) return
-if (e.includes("Timed Out")) return
-if (e.includes("Value not found")) return
-console.log('Caught exception: ', err)
+    let e = String(err)
+    if (e.includes("Socket connection timeout")) return
+    if (e.includes("item-not-found")) return
+    if (e.includes("rate-overlimit")) return
+    if (e.includes("Connection Closed")) return
+    if (e.includes("Timed Out")) return
+    if (e.includes("Value not found")) return
+    console.log('Caught exception: ', err)
 })

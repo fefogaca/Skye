@@ -62,7 +62,7 @@ const {  state, saveCreds } =await useMultiFileAuthState(`./session`)
    
    store.bind(Aurora.ev)
 
-    // login usar código de pareamento
+   // LOGIN UTILIZANDO CÓDIGO DE EMPARELHAMENTO
    // Código fonte https://github.com/WhiskeySockets/Baileys/blob/master/Example/example.ts#L61
    if (pairingCode && !Aurora.authState.creds.registered) {
       if (useMobile) throw new Error('Não é possível usar o código de pareamento com a API móvel')
@@ -160,13 +160,12 @@ const {  state, saveCreds } =await useMultiFileAuthState(`./session`)
 Aurora.ev.on("connection.update",async  (s) => {
         const { connection, lastDisconnect } = s
         if (connection == "open") {
-//            console.log(chalk.yellow(`Conectado a => ` + JSON.stringify(Aurora.user, null, 2)))
-			await delay(1999)
-            console.log(chalk.yellow(`\n                  ${chalk.bold.blue(`[ ${botname} ]`)}\n`))
-            console.log(chalk.greenBright(`✔️  Conectado com sucesso aos servidores do WhatsApp`))
-            console.log(chalk.whiteBright(`💾  Hospedado no LunarCloudService`))
-            console.log(chalk.whiteBright(`⚙️  Dono: +${owner}`))
-            console.log(chalk.whiteBright(`🔨  Desenvolvido por john\n`))
+            await delay(1999)
+            console.log(chalk.yellow(`\n\n                  ${chalk.bold.underline.magenta(`${botnameconsole}`)}\n`))
+            console.log(chalk.greenBright(`✔️  Conectado com sucesso aos servidores do WhatsApp.`))
+            console.log(chalk.whiteBright(`🔨 Desenvolvido por ${devum} & ${devdois} | Hospedado no ${hostname}.\n`))
+            // console.log(chalk.whiteBright(`⚙️  Dono: +${owner}`))
+            // console.log(chalk.yellow(`Conectado a => ` + JSON.stringify(Aurora.user, null, 1)))
         }
         if (
             connection === "close" &&

@@ -2,7 +2,7 @@
 const fs = require('fs')
 const chalk = require('chalk')
 
-//contact details
+// CONTACT DETAILS
 global.ownernomer = "5511941212232"
 global.ownername = "john"
 global.ytname = "."
@@ -11,11 +11,17 @@ global.location = "Brasil, Pernambuco, Recife"
 
 global.ownernumber = '5511941212232'  //creator number
 global.ownername = 'john' //owner name
-global.botname = 'AuroraBOT' //name of the bot
+global.botname = 'Skye BOT' //name of the bot
 
-//sticker details
+// CONSOLE DETAILS
+global.devum = 'john'
+global.devdois = 'neast'
+global.botnameconsole = 'SKYE'
+global.hostname = 'LunarCloud Service'
+
+// STICKER DETAILS
 global.packname = '📸 Sticker feito por'
-global.author = 'AuroraBOT 🤖'
+global.author = 'Skye BOT'
 
 //console view/theme
 global.themeemoji = '📝'
