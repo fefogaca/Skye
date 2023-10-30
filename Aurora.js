@@ -31,8 +31,8 @@ const { payment } = require("./lib/pix_mp/index.js")
 
 //database
 let premium = JSON.parse(fs.readFileSync('./database/premium.json'))
-let dono2 = JSON.parse(fs.readFileSync('./database/dono.json'))
 let dono = JSON.parse(fs.readFileSync('./database/dono.json'))
+let dono2 = JSON.parse(fs.readFileSync('./database/dono.json'))
 let numdev = JSON.parse(fs.readFileSync('./database/numdev.json'))
 let _afk = JSON.parse(fs.readFileSync('./database/afk-user.json'))
 let hit = JSON.parse(fs.readFileSync('./database/total-hit-user.json'))
@@ -1315,25 +1315,32 @@ module.exports = Aurora = async (Aurora, m, msg, chatUpdate, store) => {
                 enviar(`✅ Mensagem enviada com sucesso!`)
                 break
 
-            case "pix":
-                if (args.length == 0) return enviar(`❌ Por gentileza digite o valor!`)
+            case 'pix':
+                let txtapoie = `\n*E aí ${pushname}!* \nConsidere em apoiar meus desenvolvedores!\n\nA Skye é um projeto *sem fins lucrativos*. TODAS as doações são reinvestidas para aprimorar e criar novas funcionalidades. Qualquer apoio é valioso. Para doações simbólicas, envie um comprovante aos nossos desenvolvedores para acessar novas funcionalidades antecipadamente!\n\nBasta digitar "pix valor" (exemplo: pix 1)\n\nA confirmação de pagamento é automática, com QRCode e link gerados.\n\n*Obrigada!* 💜`
+
+                if (args.length == 0) return Aurora.sendMessage(m.chat, {
+                    image: fs.readFileSync('./Medias/apoienos.png'),
+                    caption: txtapoie
+                }, {
+                    quoted: m
+                })
+
                 var pagament = new payment("APP_USR-9003413286845800-120115-c75f7b28d3d7cd3705de9516f8965231-311715545");
-                console.log("🛑  Processando pagamento..."); //+pagament
                 try {
                     let inf = await pagament.create_payment(args.join(" "))
-                    console.log("🛑  Pagamento criado!") //+inf
-                    await Aurora.sendMessage(from, { image: Buffer.from(inf.qr_code, "base64"), caption: `✅ QR-Code gerado com sucesso!` })
-                    await Aurora.sendMessage(from, { text: '👇🏼 Aqui está o código copia e cola!' })
+                    console.log("🛑 Um novo pagamento foi gerado!") //+inf
+                    await Aurora.sendMessage(from, { image: Buffer.from(inf.qr_code, "base64"), caption: `✅ QRCode gerado com sucesso!` })
+                    await Aurora.sendMessage(from, { text: '👇🏼 Olha só, esse é o código copia e cola caso não consiga usar a imagem acima:' })
                     await Aurora.sendMessage(from, { text: inf.copy_paste })
 
                     let check = await pagament.check_payment();
 
                     while (check.status == 'pending') { check = await pagament.check_payment() }
-                    if (check.status == "approved") { return console.log("✅  Pagamento aprovado!") + enviar("✅ Pagamento aprovado!") + Aurora.sendMessage(`5511941212232@s.whatsapp.net`, { text: "✅ Novo pagamento aprovado, por gentileza cheque o Mercado pago!" }) }
-                    return enviar("❌ Pagamento expirado.")
+                    if (check.status == "approved") { return console.log("✅  Novo pagamento aprovado!") + enviar("Oba! Seu pagamento foi aprovado e reconhecido.\n *Muuuito obrigada!* 💜") + Aurora.sendMessage(`5511941212232@s.whatsapp.net`, { text: "✅ Novo pagamento aprovado verique o Mercado Pago!" }) }
+                    return enviar("Eita! Parece que o tempo de pagamento expirou.")
                 } catch (e) {
                     console.log(e)
-                    return enviar(`❌ Valor inválido.`)
+                    return enviar(`Ei! Acho que esse valor é inválido, hein?`)
                 }
                 break
 
@@ -1558,7 +1565,7 @@ Sou a Aurora, um BOT desenvolvido para auxiliar o seu uso no WhatsApp
                 break
 
             case 'menu':
-                let menus = `\n*Oi ${pushname}!* Bom te ver por aqui.\n
+                let menus = `\n*Oi ${pushname}!*\nBom te ver por aqui.\n
 🔮 Você pode me chamar de Skye, sou uma BOT desenvolvida para facilitar seu uso no WhatsApp.
 
 *Segue abaixo meus comandos!* 

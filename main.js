@@ -164,7 +164,6 @@ Aurora.ev.on("connection.update",async  (s) => {
             console.log(chalk.yellow(`\n\n                  ${chalk.bold.underline.magenta(`${botnameconsole}`)}\n`))
             console.log(chalk.greenBright(`✔️  Conectado com sucesso aos servidores do WhatsApp.`))
             console.log(chalk.whiteBright(`🔨 Desenvolvido por ${devum} & ${devdois} | Hospedado no ${hostname}.\n`))
-            // console.log(chalk.whiteBright(`⚙️  Dono: +${owner}`))
             // console.log(chalk.yellow(`Conectado a => ` + JSON.stringify(Aurora.user, null, 1)))
         }
         if (
