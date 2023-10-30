@@ -1562,26 +1562,27 @@ module.exports = Skye = async (Skye, m, msg, chatUpdate, store) => {
             // Case menu para donos
             case 'menudono':
                 if (!SkyeCreator) return SkyeEnviar(SkyeMensagens.dono)
-                let skyemenudono = `👋 Olá, como vai ${pushname}?
+                let skyemenudono = `👋 Olá, como vai *${pushname}*?
 Sou a Skye, um BOT desenvolvido para auxiliar o seu uso no WhatsApp
 *Segue abaixo meus comandos para dono!* 🙋‍♂️
 
-✦ adddono 
-✦ deldono
-✦ pegarsessao
-✦ apagarsessao
-✦ rr
-✦ visu *[opção]*
-✦ digitando *[opção]*
-✦ gravandoaudio *[opção]*
-✦ audiodigitando *[opção]*
-✦ autobio *[option]*
-✦ modo *[option]*
-✦ block
-✦ unblock 
-✦ addfoto
-✦ entrargp
-✦ sairgp
+• menugrupos
+• adddono 
+• deldono
+• pegarsessao
+• apagarsessao
+• rr
+• visu *[opção]*
+• digitando *[opção]*
+• gravandoaudio *[opção]*
+• audiodigitando *[opção]*
+• autobio *[option]*
+• modo *[option]*
+• block
+• unblock 
+• addfoto
+• entrargp
+• sairgp
 `
 
                 Skye.sendMessage(m.chat, {
@@ -1595,28 +1596,27 @@ Sou a Skye, um BOT desenvolvido para auxiliar o seu uso no WhatsApp
                 // Case menu para grupos
                 case 'menugrupos':
                 case 'menugrupo':
-                    if (!m.isGroup) return SkyeEnviar(SkyeMensagens.group)
-                    if (!isAdmins && !isGroupOwner && !SkyeCreator) return SkyeEnviar(SkyeMensagens.admin)
-                    let skyemenu2 = `👋 Olá, como vai ${pushname}?
-    Sou a Skye, um BOT desenvolvido para auxiliar o seu uso no WhatsApp
-    *Segue abaixo meus comandos para grupos!* 🙋‍♂️
-    
-    ✦ fechargptempo
-    ✦ abrigptempo
-    ✦ kick
-    ✦ add
-    ✦ promote
-    ✦ demote
-    ✦ descgp
-    ✦ fotogp
-    ✦ marca
-    ✦ hidetag
-    ✦ totag
-    ✦ grupo [opção]
-    ✦ editinfo
-    ✦ linkgp
-    ✦ revoke
-    `
+                    if (!m.isGroup && !SkyeCreator && !isAdmins && !isGroupOwner) return SkyeEnviar(SkyeMensagens.group)
+                    let skyemenu2 = `👋 Olá, como vai *${pushname}*?
+Sou a Skye, um BOT desenvolvido para auxiliar o seu uso no WhatsApp
+*Segue abaixo meus comandos para grupos!* 🙋‍♂️
+
+• fechargptempo
+• abrigptempo
+• kick
+• add
+• promote
+• demote
+• descgp
+• fotogp
+• marca
+• hidetag
+• totag
+• grupo [opção]
+• editinfo
+• linkgp
+• revoke
+`
     
                     Skye.sendMessage(m.chat, {
                         image: fs.readFileSync('./Medias/thumb.jpg'),
@@ -1635,29 +1635,30 @@ Sou a Skye, um BOT desenvolvido para auxiliar o seu uso no WhatsApp
 
 📡 Comandos principais!
 • menu
+• menugrupos (Execução somente em grupos!)
 • suporte
 • online
 
 👨‍💻 Comandos para conversões!
-✦ sticker 
-✦ meme Texto/Texto
-✦ roubar Texto/Texto
-✦ qc
-✦ toimage
-✦ tovideo
-✦ toaudio
-✦ tomp3
-✦ tovn
-✦ togif
-✦ tourl
-✦ qr (texto)
-✦ visuunica
-✦ emojimix (emoji+emoji)
+• sticker 
+• meme Texto/Texto
+• roubar Texto/Texto
+• qc
+• toimage
+• tovideo
+• toaudio
+• tomp3
+• tovn
+• togif
+• tourl
+• qr (texto)
+• visuunica
+• emojimix (emoji+emoji)
 
 📲 Comandos para fazer download!
-✦ tiktok (Link do vídeo) *(Sem suporte com vídeos com imagens)*
-✦ instagram (Link do reels/stories/postagem)
-✦ twitter (Link do vídeo) *(Sem suporte com tweets com imagem)*
+• tiktok (Link do vídeo) *(Sem suporte com vídeos com imagens)*
+• instagram (Link do reels/stories/postagem)
+• twitter (Link do vídeo) *(Sem suporte com tweets com imagem)*
 `
                 Skye.sendMessage(m.chat, {
                     image: fs.readFileSync('./Medias/menuinicio.png'),
