@@ -27,8 +27,6 @@ const { addPremiumUser, getPremiumExpired, getPremiumPosition, expiredCheck, che
 const { fetchBuffer, buffergif } = require("./lib/myfunc2")
 const ytdl = require('ytdl-core');
 const { youtubedl, youtubedlv2 } = require('@bochilteam/scraper');
-const ytdl  = require('ytdl-core');
-const {youtubedl, youtubedlv2}  = require('@bochilteam/scraper');
 const { payment } = require("./lib/pix_mp/index.js")
 
 //database
