@@ -1,56 +1,61 @@
-// OBS NAO FUI EU QUEM CRIO ESTE BOT SO FIZ TRADUZIR E ADICIONEI ALGUNS COMANDO DE MÚSICA APENAS NAO VEM COPIAR E DIZER QUE FOI VC QUE FEZ CRÉDITOS AO XEON
+// -------------------------------------
+//
+// Copyright (c) 2003 Skye WhatsApp Services Inc.
+// All Rights Reserved
+//
+// This product is protected by copyright and distributed under
+// licenses restricting copying, distribution, and decompilation.
+//
+// -------------------------------------
+
 const fs = require('fs')
 const chalk = require('chalk')
 
-// CONTACT DETAILS
+// Detalhes de contato
 global.ownernomer = "5511941212232"
 global.ownername = "john"
 global.ytname = "."
 global.socialm = "."
 global.location = "Brasil, Pernambuco, Recife"
 
-global.ownernumber = '5511941212232'  //creator number
-global.ownername = 'john' //owner name
-global.botname = 'Skye BOT' //name of the bot
+global.ownernumber = '5511941212232'  // Número do criador
+global.ownername = 'john' // Nome do Dono
+global.botname = 'Skye' // Nome do BOT
 
-// CONSOLE DETAILS
+// Detalhes no console
 global.devum = 'john'
 global.devdois = 'neast'
 global.botnameconsole = 'SKYE'
 global.hostname = 'LunarCloud Service'
 
-// STICKER DETAILS
+// Detalhes do Sticker
 global.packname = '📸 Sticker feito por'
 global.author = 'Skye BOT'
 
-//console view/theme
+// Ver o tema no console
 global.themeemoji = '📝'
-global.wm = "AuroraBOT"
+global.wm = "SkyeBOT"
 
-//theme link
+// Link do tema
 global.link = ''
 
-//custom prefix
+// Prefix customizados
 global.prefa = ['/']
 
-//false=disable and true=enable
-global.autoRecording = false //auto recording
-global.autoTyping = true //auto typing
-global.autorecordtype = false //auto typing + recording
-global.autoread = false //auto read messages
-global.autobio = false //auto update bio
-global.anti92 = false //auto block +92 
-global.autoread_status = false //auto view status/story
+// false = desativado and true = ativado
+global.autoRecording = false // Gravando áudio automático
+global.autoTyping = true // Escrevendo automático
+global.autorecordtype = false // Escrevendo e gravando áudio automático
+global.autoread = false // Ler as mensagens no automático
+global.autobio = false // Atualizar a bio do BOT automaticamente
+global.anti92 = false // Bloquear automaticamente pais +92 (Paquistão)
+global.autoread_status = false // Visualizar automaticamente os status dos usuários
 
-//menu type 
-//v1 is image menu, 
-//v2 is link + image menu,
-//v3 is video menu,
-//v4 is call end menu
+// Tipo do menu
 global.typemenu = 'v1'
 
-//reply messages
-global.mess = {
+// Respostas pré feitas
+global.SkyeMensagens = {
     done: '✅ Concluido com sucesso!',
     prem: 'Opa, somente usuários apoiadores podem utilizar esse recurso.',
     admin: 'Somente o(s) administrador(es) pode usar esse recurso.',
@@ -62,6 +67,7 @@ global.mess = {
     error: 'Eita, parece que houve um erro por aqui.'
 }
 
+// Imagem do Menu
 global.thumb = fs.readFileSync('./Medias/thumb.jpg')
 
 let file = require.resolve(__filename)

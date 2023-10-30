@@ -1,4 +1,13 @@
-// OBS NAO FUI EU QUEM CRIO ESTE BOT SO FIZ TRADUZIR E ADICIONEI ALGUNS COMANDO DE MÚSICA APENAS NAO VEM COPIAR E DIZER QUE FOI VC QUE FEZ CRÉDITOS AO XEON
+// -------------------------------------
+//
+// Copyright (c) 2003 Skye WhatsApp Services Inc.
+// All Rights Reserved
+//
+// This product is protected by copyright and distributed under
+// licenses restricting copying, distribution, and decompilation.
+//
+// -------------------------------------
+
 require('./configuracao')
 const pino = require('pino')
 const { Boom } = require('@hapi/boom')
@@ -10,7 +19,7 @@ const axios = require('axios')
 const PhoneNumber = require('awesome-phonenumber')
 const { imageToWebp, videoToWebp, writeExifImg, writeExifVid } = require('./lib/exif')
 const { smsg, isUrl, generateMessageTag, getBuffer, getSizeMedia, fetch, await, sleep, reSize } = require('./lib/myfunc')
-const { default: AuroraConnect, delay, PHONENUMBER_MCC, makeCacheableSignalKeyStore, useMultiFileAuthState, DisconnectReason, fetchLatestBaileysVersion, generateForwardMessageContent, prepareWAMessageMedia, generateWAMessageFromContent, generateMessageID, downloadContentFromMessage, makeInMemoryStore, jidDecode, proto } = require("@whiskeysockets/baileys")
+const { default: SkyeConnect, delay, PHONENUMBER_MCC, makeCacheableSignalKeyStore, useMultiFileAuthState, DisconnectReason, fetchLatestBaileysVersion, generateForwardMessageContent, prepareWAMessageMedia, generateWAMessageFromContent, generateMessageID, downloadContentFromMessage, makeInMemoryStore, jidDecode, proto } = require("@whiskeysockets/baileys")
 const NodeCache = require("node-cache")
 const Pino = require("pino")
 const readline = require("readline")
@@ -24,7 +33,7 @@ const store = makeInMemoryStore({
     })
 })
 
-let phoneNumber = "5511941212232"
+let phoneNumber = "5511941212232" // Número do dono
 let owner = JSON.parse(fs.readFileSync('./database/dono.json'))
 
 const pairingCode = !!phoneNumber || process.argv.includes("--pairing-code")
@@ -33,23 +42,23 @@ const useMobile = process.argv.includes("--mobile")
 const rl = readline.createInterface({ input: process.stdin, output: process.stdout })
 const question = (text) => new Promise((resolve) => rl.question(text, resolve))
          
-async function startAurora() {
+async function startSkye() {
 //------------------------------------------------------
 let { version, isLatest } = await fetchLatestBaileysVersion()
-const {  state, saveCreds } =await useMultiFileAuthState(`./session`)
-    const msgRetryCounterCache = new NodeCache() // para mensagem de nova tentativa, "mensagem de espera"
-    const Aurora = makeWASocket({
+const {  state, saveCreds } =await useMultiFileAuthState(`./SkyeSession`)
+    const msgRetryCounterCache = new NodeCache() // Para mensagem de nova tentativa, "mensagem de espera"
+    const Skye = makeWASocket({
         logger: pino({ level: 'silent' }),
-        printQRInTerminal: !pairingCode, // aparecendo QR no log do terminal
+        printQRInTerminal: !pairingCode, // Aparecendo QR no log do terminal
       mobile: useMobile, // API móvel (propensa a banimentos)
-      browser: ['Chrome (Linux)', '', ''], // para essas questões https://github.com/WhiskeySockets/Baileys/issues/328
+      browser: ['Chrome (Linux)', '', ''], // Caso haja dúvidas por favor acesse https://github.com/WhiskeySockets/Baileys/issues/328
      auth: {
          creds: state.creds,
          keys: makeCacheableSignalKeyStore(state.keys, Pino({ level: "fatal" }).child({ level: "fatal" })),
       },
-      browser: ['Chrome (Linux)', '', ''], // para essas questões https://github.com/WhiskeySockets/Baileys/issues/328
-      markOnlineOnConnect: true, // definir false para off-line
-      generateHighQualityLinkPreview: true, // criar link de visualização alto
+      browser: ['Chrome (Linux)', '', ''], // Caso haja dúvidas por favor acesse https://github.com/WhiskeySockets/Baileys/issues/328
+      markOnlineOnConnect: true, // Definir false para off-line
+      generateHighQualityLinkPreview: true, // Criar link de visualização alto
       getMessage: async (key) => {
          let jid = jidNormalizedUser(key.remoteJid)
          let msg = await store.loadMessage(jid, key.id)
@@ -57,46 +66,46 @@ const {  state, saveCreds } =await useMultiFileAuthState(`./session`)
          return msg?.message || ""
       },
       msgRetryCounterCache, // Resolver mensagens em espera
-      defaultQueryTimeoutMs: undefined, // para essas questões https://github.com/WhiskeySockets/Baileys/issues/276
+      defaultQueryTimeoutMs: undefined, // Caso haja dúvidas por favor acesse https://github.com/WhiskeySockets/Baileys/issues/276
    })
    
-   store.bind(Aurora.ev)
+   store.bind(Skye.ev)
 
    // LOGIN UTILIZANDO CÓDIGO DE EMPARELHAMENTO
    // Código fonte https://github.com/WhiskeySockets/Baileys/blob/master/Example/example.ts#L61
-   if (pairingCode && !Aurora.authState.creds.registered) {
-      if (useMobile) throw new Error('Não é possível usar o código de pareamento com a API móvel')
+   if (pairingCode && !Skye.authState.creds.registered) {
+      if (useMobile) throw new Error('❌  Não é possível utilizar o código de pareamento com a API móvel')
 
       let phoneNumber
       if (!!phoneNumber) {
          phoneNumber = phoneNumber.replace(/[^0-9]/g, '')
 
          if (!Object.keys(PHONENUMBER_MCC).some(v => phoneNumber.startsWith(v))) {
-            console.log(chalk.bgBlack(chalk.redBright("Comece com o código do país do seu número do WhatsApp, exemplo : +5511941212232")))
+            console.log(chalk.bgBlack(chalk.redBright("👋  Comece com o código do país do seu número do WhatsApp, por exemplo: +5511941212232")))
             process.exit(0)
          }
       } else {
-         phoneNumber = await question(chalk.bgBlack(chalk.greenBright(`Digite seu número do WhatsApp \nPor exemplo: +5511941212232 : `)))
+         phoneNumber = await question(chalk.bgBlack(chalk.greenBright(`👉  Digite seu número do WhatsApp \nPor por exemplo: +5511941212232 : `)))
          phoneNumber = phoneNumber.replace(/[^0-9]/g, '')
 
-         // Pergunte novamente ao digitar o número errado
+         // Pergutando novamente caso o número esteja errado
          if (!Object.keys(PHONENUMBER_MCC).some(v => phoneNumber.startsWith(v))) {
-            console.log(chalk.bgBlack(chalk.redBright("Comece com o código do país do seu número do WhatsApp, exemplo : +5511941212232")))
+            console.log(chalk.bgBlack(chalk.redBright("👉  Comece com o código do país do seu número do WhatsApp, por exemplo: +5511941212232")))
 
-            phoneNumber = await question(chalk.bgBlack(chalk.greenBright(`Digite seu número do WhatsApp \nPor exemplo: +5511941212232 : `)))
+            phoneNumber = await question(chalk.bgBlack(chalk.greenBright(`👉  Digite seu número do WhatsApp \nPor por exemplo: +5511941212232 : `)))
             phoneNumber = phoneNumber.replace(/[^0-9]/g, '')
             rl.close()
          }
       }
 
       setTimeout(async () => {
-         let code = await Aurora.requestPairingCode(phoneNumber)
+         let code = await Skye.requestPairingCode(phoneNumber)
          code = code?.match(/.{1,4}/g)?.join("-") || code
-         console.log(chalk.black(chalk.bgGreen(`Seu código de emparelhamento : `)), chalk.black(chalk.white(code)))
+         console.log(chalk.black(chalk.bgGreen(`✅  Copie seu código de emparelhamento: `)), chalk.black(chalk.white(code))) // Linha para enviar o codigo de emparelhamento
       }, 3000)
    }
 
-    Aurora.ev.on('messages.upsert', async chatUpdate => {
+    Skye.ev.on('messages.upsert', async chatUpdate => {
         //console.log(JSON.stringify(chatUpdate, undefined, 2))
         try {
             const mek = chatUpdate.messages[0]
@@ -104,20 +113,20 @@ const {  state, saveCreds } =await useMultiFileAuthState(`./session`)
             mek.message = (Object.keys(mek.message)[0] === 'ephemeralMessage') ? mek.message.ephemeralMessage.message : mek.message
             if (mek.key && mek.key.remoteJid === 'status@broadcast'){
             if (autoread_status) {
-            await Aurora.readMessages([mek.key]) 
+            await Skye.readMessages([mek.key]) 
             }
             } 
-            if (!Aurora.public && !mek.key.fromMe && chatUpdate.type === 'notify') return
+            if (!Skye.public && !mek.key.fromMe && chatUpdate.type === 'notify') return
             if (mek.key.id.startsWith('BAE5') && mek.key.id.length === 16) return
-            const m = smsg(Aurora, mek, store)
-            require("./Aurora")(Aurora, m, chatUpdate, store)
+            const m = smsg(Skye, mek, store)
+            require("./Skye")(Skye, m, chatUpdate, store)
         } catch (err) {
             console.log(err)
         }
     })
 
    
-    Aurora.decodeJid = (jid) => {
+    Skye.decodeJid = (jid) => {
         if (!jid) return jid
         if (/:\d+@/gi.test(jid)) {
             let decode = jidDecode(jid) || {}
@@ -125,9 +134,9 @@ const {  state, saveCreds } =await useMultiFileAuthState(`./session`)
         } else return jid
     }
 
-    Aurora.ev.on('contacts.update', update => {
+    Skye.ev.on('contacts.update', update => {
         for (let contact of update) {
-            let id = Aurora.decodeJid(contact.id)
+            let id = Skye.decodeJid(contact.id)
             if (store && store.contacts) store.contacts[id] = {
                 id,
                 name: contact.notify
@@ -135,36 +144,36 @@ const {  state, saveCreds } =await useMultiFileAuthState(`./session`)
         }
     })
 
-    Aurora.getName = (jid, withoutContact = false) => {
-        id = Aurora.decodeJid(jid)
-        withoutContact = Aurora.withoutContact || withoutContact
+    Skye.getName = (jid, withoutContact = false) => {
+        id = Skye.decodeJid(jid)
+        withoutContact = Skye.withoutContact || withoutContact
         let v
         if (id.endsWith("@g.us")) return new Promise(async (resolve) => {
             v = store.contacts[id] || {}
-            if (!(v.name || v.subject)) v = Aurora.groupMetadata(id) || {}
+            if (!(v.name || v.subject)) v = Skye.groupMetadata(id) || {}
             resolve(v.name || v.subject || PhoneNumber('+' + id.replace('@s.whatsapp.net', '')).getNumber('international'))
         })
         else v = id === '0@s.whatsapp.net' ? {
                 id,
                 name: 'WhatsApp'
-            } : id === Aurora.decodeJid(Aurora.user.id) ?
-            Aurora.user :
+            } : id === Skye.decodeJid(Skye.user.id) ?
+            Skye.user :
             (store.contacts[id] || {})
         return (withoutContact ? '' : v.name) || v.subject || v.verifiedName || PhoneNumber('+' + jid.replace('@s.whatsapp.net', '')).getNumber('international')
     }
     
-    Aurora.public = true
+    Skye.public = true
 
-    Aurora.serializeM = (m) => smsg(Aurora, m, store)
+    Skye.serializeM = (m) => smsg(Skye, m, store)
 
-Aurora.ev.on("connection.update",async  (s) => {
+Skye.ev.on("connection.update",async  (s) => {
         const { connection, lastDisconnect } = s
         if (connection == "open") {
             await delay(1999)
             console.log(chalk.yellow(`\n\n                  ${chalk.bold.underline.magenta(`${botnameconsole}`)}\n`))
             console.log(chalk.greenBright(`✔️  Conectado com sucesso aos servidores do WhatsApp.`))
             console.log(chalk.whiteBright(`🔨 Desenvolvido por ${devum} & ${devdois} | Hospedado no ${hostname}.\n`))
-            // console.log(chalk.yellow(`Conectado a => ` + JSON.stringify(Aurora.user, null, 1)))
+            // console.log(chalk.yellow(`Conectado a => ` + JSON.stringify(Skye.user, null, 1)))
         }
         if (
             connection === "close" &&
@@ -172,27 +181,27 @@ Aurora.ev.on("connection.update",async  (s) => {
             lastDisconnect.error &&
             lastDisconnect.error.output.statusCode != 401
         ) {
-            startAurora()
+            startSkye()
         }
     })
-    Aurora.ev.on('creds.update', saveCreds)
-    Aurora.ev.on("messages.upsert",  () => { })
+    Skye.ev.on('creds.update', saveCreds)
+    Skye.ev.on("messages.upsert",  () => { })
 
-    Aurora.sendText = (jid, text, quoted = '', options) => Aurora.sendMessage(jid, {
+    Skye.sendText = (jid, text, quoted = '', options) => Skye.sendMessage(jid, {
         text: text,
         ...options
     }, {
         quoted,
         ...options
     })
-    Aurora.sendTextWithMentions = async (jid, text, quoted, options = {}) => Aurora.sendMessage(jid, {
+    Skye.sendTextWithMentions = async (jid, text, quoted, options = {}) => Skye.sendMessage(jid, {
         text: text,
         mentions: [...text.matchAll(/@(\d{0,16})/g)].map(v => v[1] + '@s.whatsapp.net'),
         ...options
     }, {
         quoted
     })
-    Aurora.sendImageAsSticker = async (jid, path, quoted, options = {}) => {
+    Skye.sendImageAsSticker = async (jid, path, quoted, options = {}) => {
         let buff = Buffer.isBuffer(path) ? path : /^data:.*?\/.*?;base64,/i.test(path) ? Buffer.from(path.split`,` [1], 'base64') : /^https?:\/\//.test(path) ? await (await getBuffer(path)) : fs.existsSync(path) ? fs.readFileSync(path) : Buffer.alloc(0)
         let buffer
         if (options && (options.packname || options.author)) {
@@ -201,7 +210,7 @@ Aurora.ev.on("connection.update",async  (s) => {
             buffer = await imageToWebp(buff)
         }
 
-        await Aurora.sendMessage(jid, {
+        await Skye.sendMessage(jid, {
             sticker: {
                 url: buffer
             },
@@ -211,7 +220,7 @@ Aurora.ev.on("connection.update",async  (s) => {
         })
         return buffer
     }
-    Aurora.sendVideoAsSticker = async (jid, path, quoted, options = {}) => {
+    Skye.sendVideoAsSticker = async (jid, path, quoted, options = {}) => {
         let buff = Buffer.isBuffer(path) ? path : /^data:.*?\/.*?;base64,/i.test(path) ? Buffer.from(path.split`,` [1], 'base64') : /^https?:\/\//.test(path) ? await (await getBuffer(path)) : fs.existsSync(path) ? fs.readFileSync(path) : Buffer.alloc(0)
         let buffer
         if (options && (options.packname || options.author)) {
@@ -220,7 +229,7 @@ Aurora.ev.on("connection.update",async  (s) => {
             buffer = await videoToWebp(buff)
         }
 
-        await Aurora.sendMessage(jid, {
+        await Skye.sendMessage(jid, {
             sticker: {
                 url: buffer
             },
@@ -230,7 +239,7 @@ Aurora.ev.on("connection.update",async  (s) => {
         })
         return buffer
     }
-    Aurora.downloadAndSaveMediaMessage = async (message, filename, attachExtension = true) => {
+    Skye.downloadAndSaveMediaMessage = async (message, filename, attachExtension = true) => {
         let quoted = message.msg ? message.msg : message
         let mime = (message.msg || message).mimetype || ''
         let messageType = message.mtype ? message.mtype.replace(/Message/gi, '') : mime.split('/')[0]
@@ -246,7 +255,7 @@ Aurora.ev.on("connection.update",async  (s) => {
         return trueFileName
     }
 
-    Aurora.downloadMediaMessage = async (message) => {
+    Skye.downloadMediaMessage = async (message) => {
         let mime = (message.msg || message).mimetype || ''
         let messageType = message.mtype ? message.mtype.replace(/Message/gi, '') : mime.split('/')[0]
         const stream = await downloadContentFromMessage(message, messageType)
@@ -258,7 +267,7 @@ Aurora.ev.on("connection.update",async  (s) => {
         return buffer
     }
     }
-return startAurora()
+return startSkye()
 
 let file = require.resolve(__filename)
 fs.watchFile(file, () => {

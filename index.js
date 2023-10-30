@@ -1,4 +1,13 @@
-// OBS NAO FUI EU QUEM CRIO ESTE BOT SO FIZ TRADUZIR E ADICIONEI ALGUNS COMANDO DE MÚSICA APENAS NAO VEM COPIAR E DIZER QUE FOI VC QUE FEZ CRÉDITOS AO XEON
+// -------------------------------------
+//
+// Copyright (c) 2003 Skye WhatsApp Services Inc.
+// All Rights Reserved
+//
+// This product is protected by copyright and distributed under
+// licenses restricting copying, distribution, and decompilation.
+//
+// -------------------------------------
+
 const {
    spawn
 } = require('child_process')
@@ -12,7 +21,7 @@ function start() {
       })
       .on('message', data => {
          if (data == 'reset') {
-            console.log('Reiniciando o bot...')
+            console.log('🔌 Reiniciando o BOT...')
             p.kill()
             start()
             delete p
