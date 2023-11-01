@@ -726,6 +726,7 @@ module.exports = Skye = async (Skye, m, msg, chatUpdate, store) => {
             }
                 break
 
+            // Case para enviar placaloli com texto customizado
             case 'placaloli':
                 if (!q) return SkyeEnviar(`❗️ Por favor insira o texto!`)
                 SkyeEnviar(SkyeMensagens.wait)
