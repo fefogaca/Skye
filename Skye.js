@@ -755,7 +755,7 @@ module.exports = Skye = async (Skye, m, msg, chatUpdate, store) => {
                     let media = await quoted.download()
                     let encmedia = await Skye.sendVideoAsSticker(m.chat, media, m, {
                         packname: packname,
-                        author: pushname
+                        author: author
                     })
                     await fs.unlinkSync(encmedia)
                 } else {
