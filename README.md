@@ -1,4 +1,4 @@
-![image](https://github.com/johnnrl/Skye/assets/77552155/2bf82705-c608-485e-b178-4c9fd1969022)# Skye - Bot do WhatsApp
+# Skye - Bot do WhatsApp
 
 ![Skye Logo]([https://exemplo.com/caminho-para-o-logo.png](https://cdn.discordapp.com/attachments/1161428976108060705/1171282405085151282/Skye.jpeg?ex=655c1cbe&is=6549a7be&hm=5dd86dc0ead645e4862288574bb682c5909216274f5c1b5eae441326fc68ab5d&))
 
