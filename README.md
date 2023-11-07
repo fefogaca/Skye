@@ -1,6 +1,6 @@
 # Skye - Bot do WhatsApp
 
-![Skye Logo]([[https://exemplo.com/caminho-para-o-logo.png](https://cdn.discordapp.com/attachments/1161428976108060705/1171282405085151282/Skye.jpeg?ex=655c1cbe&is=6549a7be&hm=5dd86dc0ead645e4862288574bb682c5909216274f5c1b5eae441326fc68ab5d&)](https://cdn.discordapp.com/icons/1161428974631661682/d88e89d0f61f4a02244be92425442106.webp?size=96))
+![Skye Logo](https://cdn.discordapp.com/icons/1161428974631661682/d88e89d0f61f4a02244be92425442106.webp?size=96)
 
 ## Descrição
 
