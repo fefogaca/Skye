@@ -73,5 +73,5 @@ Este projeto está licenciado sob a MIT License. Consulte o arquivo [LICENSE](LI
 
 ## Contato
 
-Para obter mais informações ou suporte, entre em contato conosco em [seu-email@example.com].
+Para obter mais informações ou suporte, entre em contato conosco em [skyecontato@skye.net].
 
