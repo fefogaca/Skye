@@ -1,10 +1,20 @@
-# Skye - Bot do WhatsApp
+![image](https://github.com/johnnrl/Skye/assets/77552155/2bf82705-c608-485e-b178-4c9fd1969022)# Skye - Bot do WhatsApp
 
-![Skye Logo](https://exemplo.com/caminho-para-o-logo.png)
+![Skye Logo]([https://exemplo.com/caminho-para-o-logo.png](https://cdn.discordapp.com/attachments/1161428976108060705/1171282405085151282/Skye.jpeg?ex=655c1cbe&is=6549a7be&hm=5dd86dc0ead645e4862288574bb682c5909216274f5c1b5eae441326fc68ab5d&))
 
 ## Descrição
 
 O Skye é um bot do WhatsApp desenvolvido para simplificar tarefas comuns de automação, como enviar mensagens, responder a comandos e muito mais. Ele é construído usando a API do WhatsApp e oferece uma maneira fácil de interagir com contatos e grupos diretamente do WhatsApp.
+
+## Uso
+
+O Skye pode ser usado para diversas finalidades, incluindo:
+
+- Automatizar respostas a perguntas frequentes.
+- Enviar atualizações e notificações para os assinantes.
+- Integrar com outros sistemas e aplicativos.
+
+Para usar o Skye, basta enviar uma mensagem para o número de WhatsApp registrado e aguardar a resposta do bot.
 
 ## Funcionalidades Principais
 
@@ -57,4 +67,11 @@ Algo está faltando? Crie um problema (issue) e nos informe!
 
 Este projeto não é afiliado, associado, autorizado, endossado ou de qualquer forma oficialmente vinculado ao WhatsApp ou a qualquer uma de suas subsidiárias ou afiliados. O site oficial do WhatsApp pode ser encontrado em https://whatsapp.com. "WhatsApp", bem como nomes, marcas, emblemas e imagens relacionadas são marcas registradas de seus respectivos proprietários.
 
+## Licença
+
+Este projeto está licenciado sob a MIT License. Consulte o arquivo [LICENSE](LICENSE) para obter mais detalhes.
+
+## Contato
+
+Para obter mais informações ou suporte, entre em contato conosco em [seu-email@example.com].
 
