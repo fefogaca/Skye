@@ -1373,7 +1373,7 @@ module.exports = Skye = async (Skye, m, msg, chatUpdate, store) => {
                 if (!q.includes('tiktok')) return SkyeEnviar(`❌ O Link está inválido`)
                 SkyeEnviar(SkyeMensagens.wait)
                 require('./lib/tiktok').Tiktok(q).then(data => {
-                    Skye.sendMessage(from, { audio: { url: data.audio }, mimetype: 'audio/mp4' }, { quoted: m })
+                    Skye.sendMessage(from, { audio: { url: data.audio }, mimetype: 'audio/mp3' }, { quoted: m })
                 })
             }
                 break
