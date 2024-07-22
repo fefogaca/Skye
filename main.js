@@ -172,7 +172,7 @@ Skye.ev.on("connection.update",async  (s) => {
             await delay(1999)
             console.log(chalk.yellow(`\n\n                  ${chalk.bold.underline.magenta(`${botnameconsole}`)}\n`))
             console.log(chalk.greenBright(`✔️  Conectado com sucesso aos servidores do WhatsApp.`))
-            console.log(chalk.whiteBright(`🔨 Desenvolvido por ${devum} & ${devdois} | Hospedado no ${hostname}.\n`))
+            console.log(chalk.whiteBright(`🔨  Desenvolvido por ${devum} & ${devdois} | Hospedado no ${hostname}\n`))
             // console.log(chalk.yellow(`Conectado a => ` + JSON.stringify(Skye.user, null, 1)))
         }
         if (
