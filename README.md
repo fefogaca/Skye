@@ -1,6 +1,3 @@
-Claro! Aqui está a versão com o título "Skye" alinhado ao centro e com um emoji de estrela:
-
-```markdown
 <h1 align="center">🌟 Skye 🌟</h1>
 
 <p align="center">
@@ -76,4 +73,3 @@ Este projeto está licenciado sob a MIT License. Consulte o arquivo [LICENSE](LI
 ## 📬 Contato
 
 Para mais informações ou suporte, entre em contato conosco em [hello@felipefogaca.net].
-```
