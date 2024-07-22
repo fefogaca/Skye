@@ -1,36 +1,41 @@
-# Skye - Bot do WhatsApp
+Claro! Aqui está a versão com o título "Skye" alinhado ao centro e com um emoji de estrela:
 
-![Skye Logo](https://cdn.discordapp.com/icons/1161428974631661682/d88e89d0f61f4a02244be92425442106.webp?size=96)
+```markdown
+<h1 align="center">🌟 Skye 🌟</h1>
 
-## Descrição
+<p align="center">
+  <img src="https://cdn.discordapp.com/icons/1161428974631661682/d88e89d0f61f4a02244be92425442106.webp?size=96" alt="Skye Logo">
+</p>
 
-O Skye é um bot do WhatsApp desenvolvido para simplificar tarefas comuns de automação, como enviar mensagens, responder a comandos e muito mais. Ele é construído usando a API do WhatsApp e oferece uma maneira fácil de interagir com contatos e grupos diretamente do WhatsApp.
+## 🌟 Sobre o Skye
 
-## Uso
+O Skye é o seu novo assistente no WhatsApp! Ele foi criado para facilitar sua vida com automações úteis, desde responder perguntas até gerenciar grupos e muito mais. Desenvolvido usando a API do WhatsApp, o Skye torna a interação com seus contatos e grupos super simples.
 
-O Skye pode ser usado para diversas finalidades, incluindo:
+## 🚀 Como Usar
 
-- Automatizar respostas a perguntas frequentes.
-- Enviar atualizações e notificações para os assinantes.
-- Integrar com outros sistemas e aplicativos.
+O Skye é versátil e pode te ajudar de várias maneiras:
 
-Para usar o Skye, basta enviar uma mensagem para o número de WhatsApp registrado e aguardar a resposta do bot.
+- 📬 Automatize respostas a perguntas frequentes.
+- 📢 Envie atualizações e notificações para seus assinantes.
+- 🔗 Integre com outros sistemas e aplicativos.
 
-## Funcionalidades Principais
+Para começar a usar, é só enviar uma mensagem para o número de WhatsApp registrado e deixar o Skye fazer o resto!
 
-- Envio e recebimento de mensagens automatizadas.
-- Respostas a comandos específicos.
-- Integração com sistemas externos.
-- Gerenciamento de contatos e grupos.
+## ✨ Funcionalidades Principais
 
-## Pré-requisitos
+- 💬 Envio e recebimento de mensagens automáticas.
+- 📝 Respostas a comandos específicos.
+- 🔧 Integração com sistemas externos.
+- 👥 Gerenciamento de contatos e grupos.
 
-Antes de começar a usar o Skye, você precisará:
+## 🛠️ Pré-requisitos
 
-- Ter uma conta WhatsApp ativa e funcional no dispositivo que o Skye irá utilizar.
+Antes de começar, você vai precisar de:
+
+- Uma conta WhatsApp ativa no dispositivo que o Skye vai utilizar.
 - Node.js instalado na sua máquina.
 
-## Recursos Suportados
+## 📋 Recursos Suportados
 
 | Recurso  | Status |
 | ------------- | ------------- |
@@ -43,7 +48,6 @@ Antes de começar a usar o Skye, você precisará:
 | Enviar Cartões de Contato | ✅ |
 | Enviar Localização | ✅ |
 | Enviar Botões | ✅ |
-| Enviar Listas | ✅ (contas comerciais não suportadas) |
 | Receber Localização | ✅ | 
 | Respostas a Mensagens | ✅ |
 | Participar de Grupos por Convite  | ✅ |
@@ -56,22 +60,20 @@ Antes de começar a usar o Skye, você precisará:
 | Mencionar Usuários | ✅ |
 | Silenciar/Ativar Notificações em Conversas | ✅ |
 | Bloquear/Desbloquear Contatos | ✅ |
-| Obter Informações de Contato | ✅ |
-| Obter Fotos de Perfil | ✅ |
 | Definir Mensagem de Status do Usuário | ✅ |
 | Reagir a Mensagens | ✅ |
 
-Algo está faltando? Crie um problema (issue) e nos informe!
+Faltou alguma coisa? Crie um problema (issue) e nos avise!
 
-## Aviso Legal
+## 📜 Aviso Legal
 
-Este projeto não é afiliado, associado, autorizado, endossado ou de qualquer forma oficialmente vinculado ao WhatsApp ou a qualquer uma de suas subsidiárias ou afiliados. O site oficial do WhatsApp pode ser encontrado em https://whatsapp.com. "WhatsApp", bem como nomes, marcas, emblemas e imagens relacionadas são marcas registradas de seus respectivos proprietários.
+Este projeto não é afiliado, associado, autorizado, endossado ou de qualquer forma oficialmente vinculado ao WhatsApp ou a qualquer uma de suas subsidiárias ou afiliados. O site oficial do WhatsApp pode ser encontrado em [whatsapp.com](https://whatsapp.com). "WhatsApp", bem como nomes, marcas, emblemas e imagens relacionadas são marcas registradas de seus respectivos proprietários.
 
-## Licença
+## 📄 Licença
 
-Este projeto está licenciado sob a MIT License. Consulte o arquivo [LICENSE](LICENSE) para obter mais detalhes.
+Este projeto está licenciado sob a MIT License. Consulte o arquivo [LICENSE](LICENSE) para mais detalhes.
 
-## Contato
+## 📬 Contato
 
-Para obter mais informações ou suporte, entre em contato conosco em [skyecontato@skye.net].
-
+Para mais informações ou suporte, entre em contato conosco em [hello@felipefogaca.net].
+```
