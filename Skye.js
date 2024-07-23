@@ -3946,65 +3946,13 @@ _Se precisar de qualquer ajuda adicional, é só me chamar!_
             } else if (plataforma3 === 'WhatsApp Web') {
                 // Case for WhatsApp Web
                 Skye.sendMessage(m.chat, {
-                    image: fs.readFileSync('./Medias/menuinicio.jpg'),
+                    image: fs.readFileSync('./Medias/menuinicio.png'),
                     caption: menudownloads
                 }, {
                     quoted: m
                 });
             }
             break;
-
-            case 'teste':
-                {
-                    waifudd = await axios.get(`https://waifu.pics/api/sfw/megumin`)       
-                                            let msg = generateWAMessageFromContent(from, {
-                               viewOnceMessage: {
-                                   message: {
-                                       "messageContextInfo": {
-                                           "deviceListMetadata": {},
-                                           "deviceListMetadataVersion": 2
-                                       },
-                                       interactiveMessage: proto.Message.InteractiveMessage.create({
-                                           body: proto.Message.InteractiveMessage.Body.create({
-                                               text: 'Aqui está'//legenda 
-                                           }),
-                                           footer: proto.Message.InteractiveMessage.Footer.create({
-                                               text: ''//footer
-                                           }),
-                                           header: proto.Message.InteractiveMessage.Header.create({
-                                           //imagem em url json 
-                                               ...(await prepareWAMessageMedia({ image: {url: waifudd.data.url}}, { upload: Skye.waUploadToServer })),
-                                               title: ``,//caption 
-                                               gifPlayback: true,
-                                               subtitle: ``,
-                                               hasMediaAttachment: false
-                                           }),
-                                           nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
-                                               buttons: [
-                                                    {
-                                                   "name": "quick_reply",
-                                                   "buttonParamsJson": `{\"display_text\":\"Próximo\",\"id\":\"teste\"}`
-                                               }],
-                                           }),
-                                           contextInfo: {
-                                               mentionedJid: [sender],
-                                               forwardingScore: 999,
-                                               isForwarded: true,
-                                               forwardedNewsletterMessageInfo: {
-                                                   newsletterJid: "kk",
-                                                   newsletterName: ``,
-                                                   serverMessageId: 143
-                                               }
-                                           }
-                                       })
-                                   }
-                               }
-                           }, {});
-                   
-                           await Skye.relayMessage(msg.key.remoteJid, msg.message, {
-                               messageId: msg.key.id
-                           });}
-                           break
 
 // Case para exibir o menu com botões e detecção de sistema operacional (OS)
 case 'menu': {
@@ -4073,11 +4021,19 @@ case 'menu': {
                 },
                 nativeFlowMessage: {
                     buttons: [
+                        {
+                        name: "cta_url",
+                        buttonParamsJson: JSON.stringify({
+                            display_text: "🌐 Meu Website", // Texto exibido no botão
+                            id: `Meu Website`, // ID do botão para identificação
+                            url: `https://skyebot.org` // URL
+                        }),
+                        },
                         // Botão para Menu Downloads
                         {
                             name: "quick_reply",
                             buttonParamsJson: JSON.stringify({
-                                display_text: "📲 Menu downloads", // Texto exibido no botão
+                                display_text: "📲 Menu Downloads", // Texto exibido no botão
                                 id: `menudownloads` // ID do botão para identificação
                             }),
                         },
@@ -4151,6 +4107,10 @@ case 'menu': {
                         }),
                         nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
                             buttons: [
+                                {
+                                    "name": "cta_url",
+                                    "buttonParamsJson": "{\"display_text\":\"🌐 Meu Website\",\"id\":\"Meu Website\",\"url\":\"https://skyebot.org\"}"
+                                },
                                 // Botão para Menu Downloads
                                 {
                                     "name": "quick_reply",
