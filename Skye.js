@@ -318,7 +318,8 @@ module.exports = Skye = async (Skye, m, msg, chatUpdate, store) => {
             now,
             fromMe
         } = m
-        var body = (m.mtype === 'conversation') ? m.message.conversation : (m.mtype == 'imageMessage') ? m.message.imageMessage.caption : (m.mtype == 'videoMessage') ? m.message.videoMessage.caption : (m.mtype == 'extendedTextMessage') ? m.message.extendedTextMessage.text : (m.mtype == 'buttonsResponseMessage') ? m.message.buttonsResponseMessage.selectedButtonId : (m.mtype == 'listResponseMessage') ? m.message.listResponseMessage.singleSelectenviar.selectedRowId : (m.mtype == 'templateButtonenviarMessage') ? m.message.templateButtonenviarMessage.selectedId : (m.mtype === 'messageContextInfo') ? (m.message.buttonsResponseMessage?.selectedButtonId || m.message.listResponseMessage?.singleSelectenviar.selectedRowId || m.text) : ''
+        var body = m.message?.conversation || m.message?.viewOnceMessageV2?.message?.imageMessage?.caption || m.message?.viewOnceMessageV2?.message?.videoMessage?.caption || m.message?.imageMessage?.caption || m.message?.videoMessage?.caption || m.message?.extendedTextMessage?.text || m.message?.viewOnceMessage?.message?.videoMessage?.caption || m.message?.viewOnceMessage?.message?.imageMessage?.caption || m.message?.documentWithCaptionMessage?.message?.documentMessage?.caption || m.message?.buttonsMessage?.imageMessage?.caption || m.message?.buttonsResponseMessage?.selectedButtonId || m.message?.listResponseMessage?.singleSelectReply?.selectedRowId || m.message?.templateButtonReplyMessage?.selectedId || m?.text || ""
+//        var body = (m.mtype === 'conversation') ? m.message.conversation : (m.mtype == 'imageMessage') ? m.message.imageMessage.caption : (m.mtype == 'videoMessage') ? m.message.videoMessage.caption : (m.mtype == 'extendedTextMessage') ? m.message.extendedTextMessage.text : (m.mtype == 'buttonsResponseMessage') ? m.message.buttonsResponseMessage.selectedButtonId : (m.mtype == 'listResponseMessage') ? m.message.listResponseMessage.singleSelectenviar.selectedRowId : (m.mtype == 'templateButtonenviarMessage') ? m.message.templateButtonenviarMessage.selectedId : (m.mtype === 'messageContextInfo') ? (m.message.buttonsResponseMessage?.selectedButtonId || m.message.listResponseMessage?.singleSelectenviar.selectedRowId || m.text) : ''
         var budy = (typeof m.text == 'string' ? m.text : '')
         var prefix = prefa ? /^[/]/gi.test(body) ? body.match(/^[/]/gi)[0] : "" : prefa ?? global.prefix
         const isCmd = body.startsWith(prefix)
@@ -3953,6 +3954,58 @@ _Se precisar de qualquer ajuda adicional, é só me chamar!_
             }
             break;
 
+            case 'teste':
+                {
+                    waifudd = await axios.get(`https://waifu.pics/api/sfw/megumin`)       
+                                            let msg = generateWAMessageFromContent(from, {
+                               viewOnceMessage: {
+                                   message: {
+                                       "messageContextInfo": {
+                                           "deviceListMetadata": {},
+                                           "deviceListMetadataVersion": 2
+                                       },
+                                       interactiveMessage: proto.Message.InteractiveMessage.create({
+                                           body: proto.Message.InteractiveMessage.Body.create({
+                                               text: 'Aqui está'//legenda 
+                                           }),
+                                           footer: proto.Message.InteractiveMessage.Footer.create({
+                                               text: ''//footer
+                                           }),
+                                           header: proto.Message.InteractiveMessage.Header.create({
+                                           //imagem em url json 
+                                               ...(await prepareWAMessageMedia({ image: {url: waifudd.data.url}}, { upload: Skye.waUploadToServer })),
+                                               title: ``,//caption 
+                                               gifPlayback: true,
+                                               subtitle: ``,
+                                               hasMediaAttachment: false
+                                           }),
+                                           nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
+                                               buttons: [
+                                                    {
+                                                   "name": "quick_reply",
+                                                   "buttonParamsJson": `{\"display_text\":\"Próximo\",\"id\":\"teste\"}`
+                                               }],
+                                           }),
+                                           contextInfo: {
+                                               mentionedJid: [sender],
+                                               forwardingScore: 999,
+                                               isForwarded: true,
+                                               forwardedNewsletterMessageInfo: {
+                                                   newsletterJid: "kk",
+                                                   newsletterName: ``,
+                                                   serverMessageId: 143
+                                               }
+                                           }
+                                       })
+                                   }
+                               }
+                           }, {});
+                   
+                           await Skye.relayMessage(msg.key.remoteJid, msg.message, {
+                               messageId: msg.key.id
+                           });}
+                           break
+
 // Case para exibir o menu com botões e detecção de sistema operacional (OS)
 case 'menu': {
     // Determina a plataforma do remetente com base no ID da mensagem
@@ -4094,7 +4147,7 @@ case 'menu': {
                             title: '', // Título vazio
                             gifPlayback: true, // Permite reprodução de GIFs (não utilizado aqui)
                             subtitle: 'cuzin', // Subtítulo
-                            hasMediaAttachment: false // Indica que não há anexos de mídia
+                            hasMediaAttachment: true // Indica que não há anexos de mídia
                         }),
                         nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.create({
                             buttons: [
