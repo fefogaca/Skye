@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://telegra.ph/file/2d13ed790cd86da412b7f.png" alt="SkyeBanner">
+  <img src="https://telegra.ph/file/9387192749c9aed715bb0.png" alt="SkyeBanner">
 </p>
 
 ## 🌟 Sobre o Skye
