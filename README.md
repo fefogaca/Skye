@@ -1,5 +1,3 @@
-<h1 align="center">🌟 Skye 🌟</h1>
-
 <p align="center">
   <img src="https://telegra.ph/file/2d13ed790cd86da412b7f.png" alt="SkyeBanner">
 </p>
