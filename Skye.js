@@ -3834,7 +3834,7 @@ Sou a Skye, um BOT desenvolvido para auxiliar o seu uso no WhatsApp
 
 // Case para menu downloads com detecção OS
 case 'menudownloads':
-if (!m.isGroup && !SkyeCreator && !isAdmins && !isGroupOwner) return SkyeEnviar(SkyeMensagens.group)
+//if (!m.isGroup && !SkyeCreator && !isAdmins && !isGroupOwner) return SkyeEnviar(SkyeMensagens.group)
 const plataforma3 = m.key.id.length > 31 ? 'Android' : m.key.id.substring(0, 2) === '3A' ? 'IOS' : m.key.id.length === 22 ? 'WhatsApp Web' : '';
 let menudownloads = `👋 Olá, como vai *${pushname}*?\n
 Sou a Skye, um BOT desenvolvido para auxiliar o seu uso no *WhatsApp*
