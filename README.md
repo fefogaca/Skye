@@ -33,7 +33,8 @@ Antes de começar, você vai precisar de:
 ## ⚙️ Como instalar?
 
 > [!IMPORTANT]
-- Os comandos fornecidos são projetados para funcionar apenas em infraestrutura Linux. Para sistemas operacionais diferentes, como Windows ou macOS, podem ser necessárias adaptações.
+>
+> Os comandos fornecidos são projetados para funcionar apenas em infraestrutura Linux. Para sistemas operacionais diferentes, como Windows ou macOS, podem ser necessárias adaptações.
 
 - Para instalar os pacotes separados cole este comando no seu terminal.
 ```bash
