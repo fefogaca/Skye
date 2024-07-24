@@ -3516,7 +3516,7 @@ case 'tiktok': {
 // Case para exibir o menu de comandos para os donos do bot
 case 'menudono': {
     // Verifica se o remetente é o criador do bot
-    if (!SkyeCreator) return SkyeEnviar(SkyeMensagens.dono);
+    if (!SkyeCreator) return SkyeEnviar(SkyeMensagens.owner);
 
     // Determina a plataforma do remetente com base no ID da mensagem
     const plataforma1 = m.key.id.length > 31 
@@ -4024,25 +4024,25 @@ case 'menu': {
                         {
                         name: "cta_url",
                         buttonParamsJson: JSON.stringify({
-                            display_text: "🌐 Meu Website", // Texto exibido no botão
+                            display_text: "🔗 Meu Website", // Texto exibido no botão
                             id: `Meu Website`, // ID do botão para identificação
                             url: `https://skyebot.org` // URL
                         }),
                         },
+                        {
+                            name: "cta_url",
+                            buttonParamsJson: JSON.stringify({
+                                display_text: "🌐 Minha Comunidade Oficial!", // Texto exibido no botão
+                                id: `Minha Comunidade`, // ID do botão para identificação
+                                url: `https://chat.whatsapp.com/GiUxR1Aos5NKQh8fNxMyRv` // URL
+                            }),
+                            },
                         // Botão para Menu Downloads
                         {
                             name: "quick_reply",
                             buttonParamsJson: JSON.stringify({
                                 display_text: "📲 Menu Downloads", // Texto exibido no botão
                                 id: `menudownloads` // ID do botão para identificação
-                            }),
-                        },
-                        // Botão para Menu Dono
-                        {
-                            name: "quick_reply",
-                            buttonParamsJson: JSON.stringify({
-                                display_text: "🛡️ Menu Dono",
-                                id: `menudono`
                             }),
                         },
                         // Botão para Menu Grupos
@@ -4109,17 +4109,16 @@ case 'menu': {
                             buttons: [
                                 {
                                     "name": "cta_url",
-                                    "buttonParamsJson": "{\"display_text\":\"🌐 Meu Website\",\"id\":\"Meu Website\",\"url\":\"https://skyebot.org\"}"
+                                    "buttonParamsJson": "{\"display_text\":\"🔗 Meu Website\",\"id\":\"Meu Website\",\"url\":\"https://skyebot.org\"}"
+                                },
+                                {
+                                    "name": "cta_url",
+                                    "buttonParamsJson": "{\"display_text\":\"🌐 Minha Comunidade Oficial!\",\"id\":\"Minha Comunidade\",\"url\":\"https://chat.whatsapp.com/GiUxR1Aos5NKQh8fNxMyRv\"}"
                                 },
                                 // Botão para Menu Downloads
                                 {
                                     "name": "quick_reply",
                                     "buttonParamsJson": `{\"display_text\":\"📲 Menu downloads\",\"id\":\"menudownloads\"}`
-                                },
-                                // Botão para Menu Dono
-                                {
-                                    "name": "quick_reply",
-                                    "buttonParamsJson": `{\"display_text\":\"🛡️ Menu Dono\",\"id\":\"menudono\"}`
                                 },
                                 // Botão para Menu Grupos
                                 {
@@ -4142,8 +4141,8 @@ case 'menu': {
                             mentionedJid: [sender], // Menciona o remetente
                             isForwarded: false, // Indica que a mensagem não foi encaminhada
                             forwardedNewsletterMessageInfo: {
-                                newsletterJid: "kk",
-                                newsletterName: 'cuzin',
+                                newsletterJid: "📲 Skye",
+                                newsletterName: 'SkyeBOT v2.0',
                                 serverMessageId: 143
                             }
                         }
