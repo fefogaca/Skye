@@ -1,7 +1,7 @@
 <h1 align="center">🌟 Skye 🌟</h1>
 
 <p align="center">
-  <img src="https://cdn.discordapp.com/icons/1161428974631661682/d88e89d0f61f4a02244be92425442106.webp?size=96" alt="Skye Logo">
+  <img src="https://telegra.ph/file/2d13ed790cd86da412b7f.png" alt="SkyeBanner">
 </p>
 
 ## 🌟 Sobre o Skye
@@ -39,7 +39,7 @@ Antes de começar, você vai precisar de:
 | Enviar Mensagens  | ✅  |
 | Receber Mensagens  | ✅  |
 | Enviar Mídia (imagens/áudio/documentos)  | ✅  |
-| Enviar Mídia (vídeo)  | ✅ [(requer Google Chrome)](https://wwebjs.dev/guide/handling-attachments.html#caveat-for-sending-videos-and-gifs)  |
+| Enviar Mídia (vídeo)  | ✅  |
 | Enviar Adesivos | ✅ |
 | Receber Mídia (imagens/áudio/vídeo/documentos)  | ✅  |
 | Enviar Cartões de Contato | ✅ |
@@ -72,4 +72,4 @@ Este projeto está licenciado sob a MIT License. Consulte o arquivo [LICENSE](LI
 
 ## 📬 Contato
 
-Para mais informações ou suporte, entre em contato conosco em [hello@felipefogaca.net].
+Para mais informações ou suporte, entre em contato conosco em hello@felipefogaca.net.
