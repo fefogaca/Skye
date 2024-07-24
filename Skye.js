@@ -177,6 +177,14 @@ let numdev = JSON.parse(fs.readFileSync('./database/numdev.json'))
 let _afk = JSON.parse(fs.readFileSync('./database/afk-user.json'))
 let hit = JSON.parse(fs.readFileSync('./database/total-hit-user.json'))
 
+
+
+// Pterodactyl
+// Armazenar dados temporários para usuários recém-criados
+const tempUserData = {};
+const usersFilePath = './database/usersPterodactyl.json'; // Caminho atualizado para o arquivo JSON
+
+
 // Limite de uso diario dos comandos Tiktok / Twitter / Instagram
 const twitterUsageFilePath = './database/twitter_usage.json';
 const instagramUsageFilePath = './database/instagram_usage.json';
@@ -3176,8 +3184,242 @@ case 'tiktok': {
 }
 
             // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Area de teste
-
+            case 'criarusuario': {
+                // Mensagem de instrução para o usuário
+                const instrucao = `🔧 Para criar um novo usuário, utilize o comando no formato:
+                    \`criarusuario email/usuario/nome/sobrenome\`
+                    Por exemplo: \`criarusuario exemplo@dominio.com/usuario123/Joao/Silva\`
+                    Certifique-se de que:
+                    - O email contenha '@'.
+                    - O usuário não tenha espaços ou caracteres especiais.
+                    - O nome e sobrenome não contenham espaços.`;
+                
+                // Verifica se o comando possui os dados
+                if (!q || !q.includes('/')) {
+                    await SkyeEnviar(`❗️ Formato inválido. ${instrucao}`);
+                    break;
+                }
             
+                // Divide os dados fornecidos pelo usuário
+                const partes = q.split('/');
+                if (partes.length !== 4) {
+                    await SkyeEnviar(`❗️ Formato inválido. ${instrucao}`);
+                    break;
+                }
+            
+                const [email, username, firstName, lastName] = partes;
+            
+                // Valida o email
+                if (!email.includes('@')) {
+                    await SkyeEnviar(`❗️ O email fornecido é inválido. ${instrucao}`);
+                    break;
+                }
+            
+                // Valida o nome de usuário
+                if (/\s/.test(username) || /[^a-zA-Z0-9_]/.test(username)) {
+                    await SkyeEnviar(`❗️ O nome de usuário fornecido é inválido. ${instrucao}`);
+                    break;
+                }
+            
+                // Valida o primeiro nome
+                if (/\s/.test(firstName)) {
+                    await SkyeEnviar(`❗️ O primeiro nome fornecido é inválido. ${instrucao}`);
+                    break;
+                }
+            
+                // Valida o sobrenome
+                if (/\s/.test(lastName)) {
+                    await SkyeEnviar(`❗️ O sobrenome fornecido é inválido. ${instrucao}`);
+                    break;
+                }
+            
+                // Prepara os dados para a criação do usuário
+                const userData = {
+                    email: email.trim(),
+                    username: username.trim(),
+                    first_name: firstName.trim(),
+                    last_name: lastName.trim()
+                };
+            
+                try {
+                    // Faz a requisição para criar o usuário na API
+                    const response = await fetch('https://panel.felipefogaca.net/api/application/users', {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ptla_UXbvoT2ZqDaRCggL5SyJgOAHk2gNUnA6FfgrztybuAR'
+                        },
+                        body: JSON.stringify(userData)
+                    });
+            
+                    const data = await response.json();
+                    console.log("Resposta da API:", data);
+            
+                    if (response.ok) {
+                        const userId = data.attributes.id;
+            
+// Solicita a senha ao usuário
+await SkyeEnviar(`✅ Parabéns, seu usuário foi criado com sucesso!
+Aqui estão suas credenciais 
+- ID: ${userId}
+- Email: ${data.attributes.email}
+- User: ${data.attributes.username}
+
+🔐 Agora, para criar a sua senha você deve:
+- Entrar no site abaixo
+🔗 https://panel.felipefogaca.net/
+- Clique em esqueci minha senha e faça o procedimento para criar sua senha!`);
+            
+                        // Salva o ID do usuário e o número do WhatsApp no arquivo JSON
+                        const fs = require('fs');
+                        const path = './database/usersPterodactyl.json';
+                        const usersData = JSON.parse(fs.readFileSync(path, 'utf8'));
+                        usersData[sender] = {
+                            ID: userId
+                        };
+                        fs.writeFileSync(path, JSON.stringify(usersData, null, 2));
+                        
+                    } else {
+                        await SkyeEnviar(`❗️ Ocorreu um erro ao criar o usuário: ${data.errors[0].detail}`);
+                    }
+                } catch (error) {
+                    console.error("Erro ao processar a solicitação:", error);
+                    await SkyeEnviar(`❗️ Ocorreu um erro ao processar sua solicitação. Por favor, tente novamente mais tarde.`);
+                }
+            
+                break;
+            }
+
+            case 'criarwebsite': {
+                // Mensagem de instrução para o usuário
+const instrucao = `🔧 Para criar um novo servidor, utilize o comando no formato:
+\`criarwebsite nome_do_servidor\`
+Por exemplo: \`criarwebsite MeuServidor\`
+Certifique-se de que:
+- O nome do servidor não contenha caracteres especiais.
+- O nome do servidor tenha no mínimo 3 caracteres.`;
+            
+                // Verifica se o comando possui os dados
+                if (!q || q.trim().length === 0) {
+                    await SkyeEnviar(`❗️ Formato inválido. ${instrucao}`);
+                    break;
+                }
+                
+                const serverName = q.trim();
+                
+                // Valida o nome do servidor
+                if (serverName.length < 3 || /[^a-zA-Z0-9_]/.test(serverName)) {
+                    await SkyeEnviar(`❗️ O nome do servidor fornecido é inválido. ${instrucao}`);
+                    break;
+                }
+                
+                // Verifica se o usuário está registrado no arquivo JSON
+                const fs = require('fs');
+                const path = './database/usersPterodactyl.json';
+                let usersData;
+                
+                try {
+                    usersData = JSON.parse(fs.readFileSync(path, 'utf8'));
+                    console.log("Users Data:", usersData); // Log dos dados do JSON
+                } catch (err) {
+                    console.error("Erro ao ler o arquivo JSON:", err);
+                    await SkyeEnviar(`❗️ Não foi possível verificar seu registro. Tente novamente mais tarde.`);
+                    break;
+                }
+            
+                // Verifica o valor de sender
+                const whatsappNumber = `${sender.split("@")[0]}@s.whatsapp.net`;
+                console.log("Sender:", sender); // Log do sender
+                console.log("WhatsApp Number:", whatsappNumber); // Log do número do WhatsApp
+            
+                if (!usersData[whatsappNumber]) {
+                    await SkyeEnviar(`❗️ Você não está registrado no sistema. Por favor, crie um usuário antes de criar um servidor.`);
+                    break;
+                }
+                
+                // Gera um número aleatório entre 50 e 100
+                function getRandomInt(min, max) {
+                    return Math.floor(Math.random() * (max - min + 1)) + min;
+                }
+                
+                const randomAllocation = getRandomInt(50, 100);
+                
+                // Prepara os dados para a criação do servidor
+                const serverData = {
+                    name: serverName,
+                    user: usersData[whatsappNumber].ID, // ID do usuário registrado
+                    egg: 16, // Substitua conforme necessário
+                    docker_image: "ghcr.io/sigma-production/nginx-ptero:8.0",
+                    startup: "{{STARTUP_CMD}}; if [[ ! -z ${COMPOSER_MODULES} ]]; then composer require ${COMPOSER_MODULES} --working-dir=/home/container/webroot; fi;",
+                    environment: {
+                        STARTUP_CMD: "./start.sh",
+                        WORDPRESS: "0",
+                        COMPOSER_MODULES: "",
+                        GIT_ADDRESS: "",
+                        BRANCH: "",
+                        AUTO_UPDATE: "0",
+                        USER_UPLOAD: "0",
+                        USERNAME: "",
+                        ACCESS_TOKEN: "",
+                        STARTUP: "{{STARTUP_CMD}}; if [[ ! -z ${COMPOSER_MODULES} ]]; then composer require ${COMPOSER_MODULES} --working-dir=/home/container/webroot; fi;",
+                        P_SERVER_LOCATION: "DE",
+                        P_SERVER_UUID: "289de702-3888-4dd3-98cf-1209fb08141b",
+                        P_SERVER_ALLOCATION_LIMIT: 1
+                    },
+                    limits: {
+                        memory: 126,
+                        swap: 0,
+                        disk: 512,
+                        io: 500,
+                        cpu: 100
+                    },
+                    feature_limits: {
+                        databases: 0,
+                        allocations: 0,
+                        backups: 0,
+                        proxies: 0
+                    },
+                    allocation: {
+                        default: randomAllocation
+                    }
+                };
+                
+                try {
+                    // Faz a requisição para criar o servidor na API
+                    const response = await fetch('https://panel.felipefogaca.net/api/application/servers', {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ptla_UXbvoT2ZqDaRCggL5SyJgOAHk2gNUnA6FfgrztybuAR'
+                        },
+                        body: JSON.stringify(serverData)
+                    });
+                
+                    const data = await response.json();
+                    console.log("Resposta da API:", data);
+                
+                    if (response.ok) {
+                        // Envia mensagem de sucesso para o usuário
+await SkyeEnviar(`✅ Servidor criado com sucesso!
+Nome: ${data.attributes.name}
+ID: ${data.attributes.id}
+Link: https://panel.felipefogaca.net/server/${data.attributes.identifier}
+Verifique a lista de servidores no painel para mais detalhes.`);
+                    } else {
+                        await SkyeEnviar(`❗️ Ocorreu um erro ao criar o servidor: ${data.errors[0].detail}`);
+                    }
+                } catch (error) {
+                    console.error("Erro ao processar a solicitação:", error);
+                    await SkyeEnviar(`❗️ Ocorreu um erro ao processar sua solicitação. Por favor, tente novamente mais tarde.`);
+                }
+            
+                break;
+            }
+            
+            
+
 
 
 
