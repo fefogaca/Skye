@@ -81,18 +81,18 @@ const {  state, saveCreds } =await useMultiFileAuthState(`./SkyeSession`)
          phoneNumber = phoneNumber.replace(/[^0-9]/g, '')
 
          if (!Object.keys(PHONENUMBER_MCC).some(v => phoneNumber.startsWith(v))) {
-            console.log(chalk.bgBlack(chalk.redBright("👋  Comece com o código do país do seu número do WhatsApp, por exemplo: +5511941212232")))
+            console.log(chalk.bgBlack(chalk.redBright("👋  Comece com o código do país do seu número do WhatsApp, por exemplo: +5511913299732")))
             process.exit(0)
          }
       } else {
-         phoneNumber = await question(chalk.bgBlack(chalk.greenBright(`👉  Digite seu número do WhatsApp \nPor por exemplo: +5511941212232 : `)))
+         phoneNumber = await question(chalk.bgBlack(chalk.greenBright(`👉  Digite seu número do WhatsApp \nPor por exemplo: +5511913299732 : `)))
          phoneNumber = phoneNumber.replace(/[^0-9]/g, '')
 
          // Pergutando novamente caso o número esteja errado
          if (!Object.keys(PHONENUMBER_MCC).some(v => phoneNumber.startsWith(v))) {
-            console.log(chalk.bgBlack(chalk.redBright("👉  Comece com o código do país do seu número do WhatsApp, por exemplo: +5511941212232")))
+            console.log(chalk.bgBlack(chalk.redBright("👉  Comece com o código do país do seu número do WhatsApp, por exemplo: +5511913299732")))
 
-            phoneNumber = await question(chalk.bgBlack(chalk.greenBright(`👉  Digite seu número do WhatsApp \nPor por exemplo: +5511941212232 : `)))
+            phoneNumber = await question(chalk.bgBlack(chalk.greenBright(`👉  Digite seu número do WhatsApp \nPor por exemplo: +5511913299732 : `)))
             phoneNumber = phoneNumber.replace(/[^0-9]/g, '')
             rl.close()
          }
