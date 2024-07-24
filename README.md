@@ -86,4 +86,5 @@ Este projeto está licenciado sob a MIT License. Consulte o arquivo [LICENSE](LI
 
 ## 📬 Contato
 
-Para mais informações ou suporte, entre em contato conosco em hello@felipefogaca.net.
+> [!NOTE]
+> Com o tempo, as dependências do WhatsApp podem ser atualizadas. Se você encontrar problemas de conexão, atualize as dependências. Para mais informações ou suporte, entre em contato conosco pelo e-mail hello@felipefogaca.net.
