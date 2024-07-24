@@ -28,7 +28,22 @@ Para começar a usar, é só enviar uma mensagem para o número de WhatsApp regi
 Antes de começar, você vai precisar de:
 
 - Uma conta WhatsApp ativa no dispositivo que o Skye vai utilizar.
-- Node.js instalado na sua máquina.
+- Node.js instalado na sua máquina linux.
+
+## ⚙️ Como instalar?
+
+> [!IMPORTANT]
+- Os comandos fornecidos são projetados para funcionar apenas em infraestrutura Linux. Para sistemas operacionais diferentes, como Windows ou macOS, podem ser necessárias adaptações.
+
+- Para instalar os pacotes separados cole este comando no seu terminal.
+```bash
+apt upgrade -y && apt update -y && apt install -y ffmpeg nodejs wget tesseract git && termux-setup-storage
+```
+
+- Para instalar todos os assets cole este comando no seu terminal.
+```bash
+npm install --legacy-peer-deps
+```
 
 ## 📋 Recursos Suportados
 
