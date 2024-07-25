@@ -38,7 +38,7 @@ Antes de começar, você vai precisar de:
 
 - Para instalar os pacotes separados cole este comando no seu terminal.
 ```bash
-apt upgrade -y && apt update -y && apt install -y ffmpeg nodejs wget tesseract git && termux-setup-storage
+apt upgrade -y && apt update -y && apt install -y ffmpeg nodejs wget tesseract git
 ```
 
 - Para instalar todos os assets cole este comando no seu terminal.
