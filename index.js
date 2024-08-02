@@ -64,9 +64,12 @@ function startServer() {
     });
 
     // Inicia o servidor na porta especificada
-	// Função para monitorar a atividade do BOT para a StatusPage
     app.listen(port, () => {
-        console.log(`✅  Monitorador Web iniciado com sucesso na porta ${port}`);
+        // Exibe uma mensagem no console após 5 segundos
+		// Função para monitorar a atividade do BOT para a StatusPage
+        setTimeout(() => {
+            console.log(`✅  Monitorador Web iniciado com sucesso na porta ${port}`);
+        }, 5000);
     });
 }
 
