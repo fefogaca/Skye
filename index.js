@@ -12,6 +12,8 @@
 const { spawn } = require('child_process');
 // Importa o módulo 'path' para manipulação de caminhos de arquivos
 const path = require('path');
+// Importa o módulo 'express' para criar um servidor web
+const express = require('express');
 
 // Função para iniciar o processo principal
 function start() {
@@ -50,5 +52,25 @@ function start() {
     });
 }
 
+// Função para iniciar o servidor Express
+function startServer() {
+    const app = express();
+// Caso o node mude de porta, coloque a porta nova abaixo
+    const port = 25573;
+
+    // Define uma rota para responder com "online"
+    app.get('/', (req, res) => {
+        res.send('online');
+    });
+
+    // Inicia o servidor na porta especificada
+	// Função para monitorar a atividade do BOT para a StatusPage
+    app.listen(port, () => {
+        console.log(`✅ Monitorador Web iniciado com sucesso na porta ${port}`);
+    });
+}
+
 // Inicia o processo principal
 start();
+// Inicia o servidor web
+startServer();
