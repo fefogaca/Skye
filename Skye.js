@@ -2936,7 +2936,7 @@ case 'twitter':
     
         try {
             // Faz uma requisição para obter dados da mídia do link fornecido
-            post = await fetchJson(`https://api.felipefogaca.net/download?url=${q}&apikey=${skyeapikey}`);
+            post = await fetchJson(`https://api.felipefogaca.net/download?url=${q}`);
             const texto = `${post.result.text}`;
             const mediaItems = post.result.media_extended;
     
@@ -3043,7 +3043,7 @@ case 'reels': {
 
     try {
         // Faz uma requisição para obter dados da mídia do link fornecido
-        const post = await axios.get(`https://api.felipefogaca.net/download?url=${q}&apikey=${skyeapikey}`);
+        const post = await axios.get(`https://api.felipefogaca.net/download?url=${q}`);
 
         // Verifica se a resposta contém mídia
         if (post.data && post.data.result && post.data.result.length > 0) {
@@ -3139,7 +3139,7 @@ case 'tiktok': {
         SkyeEnviar(SkyeMensagens.wait);
 
         // Faz uma requisição para obter dados da mídia do link fornecido
-        const response = await axios.get(`https://api.felipefogaca.net/download?url=${q}&apikey=${skyeapikey}`);
+        const response = await axios.get(`https://api.felipefogaca.net/download?url=${q}`);
         const post = response.data;
 
         // Verifica se a resposta contém dados válidos
