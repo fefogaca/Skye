@@ -51,12 +51,14 @@ const {  state, saveCreds } =await useMultiFileAuthState(`./SkyeSession`)
         logger: pino({ level: 'silent' }),
         printQRInTerminal: !pairingCode, // Aparecendo QR no log do terminal
       mobile: useMobile, // API móvel (propensa a banimentos)
-      browser: ['Chrome (Linux)', '', ''], // Caso haja dúvidas por favor acesse https://github.com/WhiskeySockets/Baileys/issues/328
+        // Não é necessário a utilização do browser
+//      browser: ["Ubuntu", "Chrome", "20.0.04"], // Caso haja dúvidas por favor acesse https://github.com/WhiskeySockets/Baileys/issues/328
      auth: {
          creds: state.creds,
          keys: makeCacheableSignalKeyStore(state.keys, Pino({ level: "fatal" }).child({ level: "fatal" })),
       },
-      browser: ['Chrome (Linux)', '', ''], // Caso haja dúvidas por favor acesse https://github.com/WhiskeySockets/Baileys/issues/328
+      // Não é necessário a utilização do browser
+//      browser: ["Ubuntu", "Chrome", "20.0.04"], // Caso haja dúvidas por favor acesse https://github.com/WhiskeySockets/Baileys/issues/328
       markOnlineOnConnect: true, // Definir false para off-line
       generateHighQualityLinkPreview: true, // Criar link de visualização alto
       getMessage: async (key) => {
